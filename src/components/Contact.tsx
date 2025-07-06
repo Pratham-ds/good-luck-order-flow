@@ -18,10 +18,19 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Create WhatsApp message with form data
+    const whatsappMessage = `Hi! I'm ${formData.name}. Phone: ${formData.phone}${formData.email ? `, Email: ${formData.email}` : ''}. Message: ${formData.message}`;
+    const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(whatsappMessage)}`;
+    
+    // Open WhatsApp
+    window.open(whatsappUrl, '_blank');
+    
     toast({
       title: "Message Sent!",
-      description: "We'll get back to you within 24 hours.",
+      description: "Your message has been sent via WhatsApp. We'll get back to you within 24 hours.",
     });
+    
     setFormData({ name: '', email: '', phone: '', message: '' });
   };
 
@@ -30,6 +39,16 @@ const Contact = () => {
       ...prev,
       [e.target.name]: e.target.value
     }));
+  };
+
+  const handleWhatsAppClick = () => {
+    const message = "Hi! I would like to know more about your services.";
+    const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const handleCallClick = () => {
+    window.location.href = "tel:+918171647906";
   };
 
   return (
@@ -55,14 +74,12 @@ const Contact = () => {
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">Phone & WhatsApp</h4>
                     <p className="text-gray-600">+91 8171647906</p>
-                    <a 
-                      href="https://wa.me/918171647906" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
+                    <button 
+                      onClick={handleWhatsAppClick}
                       className="text-green-600 hover:text-green-700 font-medium"
                     >
                       Chat on WhatsApp →
-                    </a>
+                    </button>
                   </div>
                 </div>
 
@@ -99,15 +116,18 @@ const Contact = () => {
             <div className="bg-blue-50 rounded-xl p-6">
               <h4 className="font-bold text-gray-900 mb-4">Quick Actions</h4>
               <div className="space-y-3">
-                <Button className="w-full bg-green-600 hover:bg-green-700">
-                  <a href="https://wa.me/918171647906" className="flex items-center justify-center w-full">
-                    WhatsApp Us Now
-                  </a>
+                <Button 
+                  className="w-full bg-green-600 hover:bg-green-700"
+                  onClick={handleWhatsAppClick}
+                >
+                  WhatsApp Us Now
                 </Button>
-                <Button variant="outline" className="w-full">
-                  <a href="tel:+918171647906" className="flex items-center justify-center w-full">
-                    Call Now
-                  </a>
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={handleCallClick}
+                >
+                  Call Now
                 </Button>
               </div>
             </div>
@@ -176,7 +196,7 @@ const Contact = () => {
                 </div>
 
                 <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
-                  Send Message
+                  Send Message via WhatsApp
                 </Button>
               </form>
             </CardContent>

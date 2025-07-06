@@ -4,6 +4,16 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, MapPin } from 'lucide-react';
 
 const Hero = () => {
+  const handleBookPickup = () => {
+    const message = "Hi! I would like to book a pickup for my laundry. Please let me know the available time slots.";
+    const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const handleViewServices = () => {
+    document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section id="home" className="bg-gradient-to-br from-blue-50 to-blue-100 py-20">
       <div className="container mx-auto px-4">
@@ -22,10 +32,19 @@ const Hero = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-6">
+              <Button 
+                size="lg" 
+                className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-6"
+                onClick={handleBookPickup}
+              >
                 Book Pickup Now
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="text-lg px-8 py-6"
+                onClick={handleViewServices}
+              >
                 View Services
               </Button>
             </div>

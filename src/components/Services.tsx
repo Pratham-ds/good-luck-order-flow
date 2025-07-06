@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,42 +11,42 @@ const Services = () => {
       description: "Professional dry cleaning for delicate fabrics and formal wear",
       price: "From ₹80",
       features: ["Suits & Dresses", "Delicate Fabrics", "Stain Removal", "Press & Finish"],
-      image: "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/512/external-dry-cleaning-cleaning-flaticons-lineal-color-flat-icons-3.png"
+      image: "https://cdn-icons-png.flaticon.com/512/2719/2719507.png"
     },
     {
       title: "Wash & Fold",
       description: "Complete washing, drying, and folding service for everyday clothes",
       price: "From ₹50/kg",
       features: ["Washing & Drying", "Folding", "Fabric Softener", "Same Day Service"],
-      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-laundry-cleaning-flaticons-flat-flaticons.png"
+      image: "https://cdn-icons-png.flaticon.com/512/2593/2593549.png"
     },
     {
       title: "Ironing & Pressing",
       description: "Professional pressing for crisp, wrinkle-free clothing",
       price: "From ₹30",
       features: ["Professional Press", "Starch Options", "Hanger Service", "Quick Turnaround"],
-      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-iron-household-appliances-flaticons-flat-flaticons.png"
+      image: "https://cdn-icons-png.flaticon.com/512/2719/2719784.png"
     },
     {
       title: "Alterations",
       description: "Expert tailoring and alterations for the perfect fit",
       price: "From ₹150",
       features: ["Hemming", "Taking In/Out", "Zipper Repair", "Custom Fitting"],
-      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-sewing-machine-sewing-flaticons-flat-flaticons.png"
+      image: "https://cdn-icons-png.flaticon.com/512/2719/2719669.png"
     },
     {
       title: "Comforters & Bedding",
       description: "Large item cleaning for comforters, blankets, and bedding",
       price: "From ₹250",
       features: ["Comforters", "Blankets", "Pillows", "Curtains"],
-      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-bed-furniture-flaticons-flat-flaticons.png"
+      image: "https://cdn-icons-png.flaticon.com/512/1168/1168843.png"
     },
     {
       title: "Wedding Dress Care",
       description: "Specialized cleaning and preservation for wedding dresses",
       price: "From ₹1500",
       features: ["Cleaning", "Preservation", "Storage Box", "Stain Treatment"],
-      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-wedding-dress-wedding-flaticons-flat-flaticons.png"
+      image: "https://cdn-icons-png.flaticon.com/512/1021/1021637.png"
     }
   ];
 
@@ -55,7 +56,7 @@ const Services = () => {
       description: "Professional cleaning for all types of footwear",
       price: "From ₹100",
       features: ["Sports Shoes", "Leather Boots", "Branded Footwear", "Deep Cleaning"],
-      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-shoes-cleaning-flaticons-flat-flaticons.png",
+      image: "https://cdn-icons-png.flaticon.com/512/2553/2553738.png",
       icon: "👟"
     },
     {
@@ -63,7 +64,7 @@ const Services = () => {
       description: "Deep cleaning and stain removal for all carpet types",
       price: "From ₹200/sqm",
       features: ["Deep Steam Cleaning", "Stain Removal", "Odor Treatment", "Quick Drying"],
-      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-carpet-cleaning-flaticons-flat-flaticons.png",
+      image: "https://cdn-icons-png.flaticon.com/512/2719/2719441.png",
       icon: "🧽"
     },
     {
@@ -71,7 +72,7 @@ const Services = () => {
       description: "Gentle cleaning for all types of curtains and drapes",
       price: "From ₹150/panel",
       features: ["Delicate Fabric Care", "Colour Protection", "Wrinkle-Free", "UV Protection"],
-      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-curtains-home-flaticons-flat-flaticons.png",
+      image: "https://cdn-icons-png.flaticon.com/512/1168/1168922.png",
       icon: "🪟"
     },
     {
@@ -79,7 +80,7 @@ const Services = () => {
       description: "Professional upholstery cleaning for sofas and furniture",
       price: "From ₹800",
       features: ["Fabric & Leather", "Deep Sanitization", "Stain Removal", "Odor Elimination"],
-      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-sofa-furniture-flaticons-flat-flaticons.png",
+      image: "https://cdn-icons-png.flaticon.com/512/1168/1168876.png",
       icon: "🛋️"
     },
     {
@@ -87,7 +88,7 @@ const Services = () => {
       description: "Thorough cleaning for doormats, bath mats, and floor mats",
       price: "From ₹80",
       features: ["All Mat Types", "Antibacterial Treatment", "Quick Drying", "Odor Removal"],
-      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-doormat-cleaning-flaticons-flat-flaticons.png",
+      image: "https://cdn-icons-png.flaticon.com/512/2719/2719482.png",
       icon: "🏠"
     },
     {
@@ -95,10 +96,16 @@ const Services = () => {
       description: "Cleaning service for various household fabric items",
       price: "From ₹50",
       features: ["Table Covers", "Cushion Covers", "Blankets", "Custom Items"],
-      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-table-cloth-household-flaticons-flat-flaticons.png",
+      image: "https://cdn-icons-png.flaticon.com/512/1168/1168853.png",
       icon: "🏡"
     }
   ];
+
+  const handleBookService = (serviceName: string) => {
+    const message = `Hi! I would like to book ${serviceName} service. Please provide more details about pricing and pickup schedule.`;
+    const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   const ServiceCard = ({ service, showIcon = false }: { service: any, showIcon?: boolean }) => (
     <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
@@ -106,7 +113,7 @@ const Services = () => {
         <img 
           src={service.image} 
           alt={service.title}
-          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-48 object-contain bg-blue-50 p-4 group-hover:scale-105 transition-transform duration-300"
         />
         <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full font-semibold">
           {service.price}
@@ -132,7 +139,10 @@ const Services = () => {
             </li>
           ))}
         </ul>
-        <Button className="w-full bg-blue-600 hover:bg-blue-700">
+        <Button 
+          className="w-full bg-blue-600 hover:bg-blue-700"
+          onClick={() => handleBookService(service.title)}
+        >
           Book This Service
         </Button>
       </CardContent>

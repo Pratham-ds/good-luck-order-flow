@@ -10,12 +10,28 @@ const Header = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  const handleNavClick = (sectionId: string) => {
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    setIsMenuOpen(false);
+  };
+
+  const handleBookNow = () => {
+    const message = "Hi! I would like to book your laundry service. Please provide more details.";
+    const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const handleLogin = () => {
+    // Placeholder for login functionality
+    alert("Login functionality will be implemented soon!");
+  };
+
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 cursor-pointer" onClick={() => handleNavClick('home')}>
             <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center">
               <span className="text-white font-bold text-lg">GL</span>
             </div>
@@ -28,10 +44,10 @@ const Header = () => {
           {/* Desktop Navigation */}
           {!isMobile && (
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="text-gray-700 hover:text-blue-600 transition-colors">Home</a>
-              <a href="#services" className="text-gray-700 hover:text-blue-600 transition-colors">Services</a>
-              <a href="#about" className="text-gray-700 hover:text-blue-600 transition-colors">About</a>
-              <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors">Contact</a>
+              <button onClick={() => handleNavClick('home')} className="text-gray-700 hover:text-blue-600 transition-colors">Home</button>
+              <button onClick={() => handleNavClick('services')} className="text-gray-700 hover:text-blue-600 transition-colors">Services</button>
+              <button onClick={() => handleNavClick('about')} className="text-gray-700 hover:text-blue-600 transition-colors">About</button>
+              <button onClick={() => handleNavClick('contact')} className="text-gray-700 hover:text-blue-600 transition-colors">Contact</button>
             </nav>
           )}
 
@@ -42,11 +58,11 @@ const Header = () => {
                 <Phone className="w-4 h-4 mr-2" />
                 Call Now
               </a>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" onClick={handleLogin}>
                 <User className="w-4 h-4 mr-2" />
                 Login
               </Button>
-              <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+              <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={handleBookNow}>
                 Book Now
               </Button>
             </div>
@@ -64,16 +80,16 @@ const Header = () => {
         {isMobile && isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t">
             <nav className="flex flex-col space-y-4 mt-4">
-              <a href="#home" className="text-gray-700 hover:text-blue-600 transition-colors">Home</a>
-              <a href="#services" className="text-gray-700 hover:text-blue-600 transition-colors">Services</a>
-              <a href="#about" className="text-gray-700 hover:text-blue-600 transition-colors">About</a>
-              <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors">Contact</a>
+              <button onClick={() => handleNavClick('home')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">Home</button>
+              <button onClick={() => handleNavClick('services')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">Services</button>
+              <button onClick={() => handleNavClick('about')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">About</button>
+              <button onClick={() => handleNavClick('contact')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">Contact</button>
               <div className="flex flex-col space-y-2 pt-4 border-t">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" onClick={handleLogin}>
                   <User className="w-4 h-4 mr-2" />
                   Login
                 </Button>
-                <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={handleBookNow}>
                   Book Now
                 </Button>
               </div>
