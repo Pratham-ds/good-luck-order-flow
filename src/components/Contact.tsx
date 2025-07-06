@@ -54,9 +54,9 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">Phone & WhatsApp</h4>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                    <p className="text-gray-600">+91 8171647906</p>
                     <a 
-                      href="https://wa.me/15551234567" 
+                      href="https://wa.me/918171647906" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-green-600 hover:text-green-700 font-medium"
@@ -73,9 +73,9 @@ const Contact = () => {
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">Address</h4>
                     <p className="text-gray-600">
-                      123 Main Street<br />
-                      Downtown District<br />
-                      City, State 12345
+                      Ambar Road, Malviya Marg<br />
+                      near Barh Ka Ped<br />
+                      Bulandshahr
                     </p>
                   </div>
                 </div>
@@ -86,10 +86,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">Business Hours</h4>
-                    <div className="text-gray-600 space-y-1">
-                      <p>Monday - Friday: 7:00 AM - 7:00 PM</p>
-                      <p>Saturday: 8:00 AM - 6:00 PM</p>
-                      <p>Sunday: 10:00 AM - 4:00 PM</p>
+                    <div className="text-gray-600">
+                      <p>Open Daily: 10:00 AM - 9:00 PM</p>
                     </div>
                   </div>
                 </div>
@@ -101,12 +99,12 @@ const Contact = () => {
               <h4 className="font-bold text-gray-900 mb-4">Quick Actions</h4>
               <div className="space-y-3">
                 <Button className="w-full bg-green-600 hover:bg-green-700">
-                  <a href="https://wa.me/15551234567" className="flex items-center justify-center w-full">
+                  <a href="https://wa.me/918171647906" className="flex items-center justify-center w-full">
                     WhatsApp Us Now
                   </a>
                 </Button>
                 <Button variant="outline" className="w-full">
-                  <a href="tel:+15551234567" className="flex items-center justify-center w-full">
+                  <a href="tel:+918171647906" className="flex items-center justify-center w-full">
                     Call Now
                   </a>
                 </Button>

@@ -30,9 +30,9 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">Dry Cleaning</a></li>
               <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">Wash & Fold</a></li>
-              <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">Ironing & Pressing</a></li>
-              <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">Alterations</a></li>
-              <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">Wedding Dress Care</a></li>
+              <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">Shoe Cleaning</a></li>
+              <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">Carpet Cleaning</a></li>
+              <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">Sofa Cleaning</a></li>
             </ul>
           </div>
 
@@ -54,15 +54,18 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-blue-400" />
-                <span className="text-gray-400">+1 (555) 123-4567</span>
+                <span className="text-gray-400">+91 8171647906</span>
               </div>
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-blue-400 mt-0.5" />
                 <div className="text-gray-400">
-                  <p>123 Main Street</p>
-                  <p>Downtown District</p>
-                  <p>City, State 12345</p>
+                  <p>Ambar Road, Malviya Marg</p>
+                  <p>near Barh Ka Ped</p>
+                  <p>Bulandshahr</p>
                 </div>
+              </div>
+              <div className="text-gray-400">
+                <p>Open Daily: 10:00 AM - 9:00 PM</p>
               </div>
             </div>
           </div>

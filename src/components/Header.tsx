@@ -38,7 +38,7 @@ const Header = () => {
           {/* Desktop CTA Buttons */}
           {!isMobile && (
             <div className="hidden md:flex items-center space-x-4">
-              <a href="tel:+1234567890" className="flex items-center text-blue-600 hover:text-blue-800">
+              <a href="tel:+918171647906" className="flex items-center text-blue-600 hover:text-blue-800">
                 <Phone className="w-4 h-4 mr-2" />
                 Call Now
               </a>
