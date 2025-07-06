@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,42 +10,42 @@ const Services = () => {
       description: "Professional dry cleaning for delicate fabrics and formal wear",
       price: "From ₹80",
       features: ["Suits & Dresses", "Delicate Fabrics", "Stain Removal", "Press & Finish"],
-      image: "https://images.unsplash.com/photo-1566554273541-37a9ca77b91b?w=300&h=200&fit=crop"
+      image: "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/512/external-dry-cleaning-cleaning-flaticons-lineal-color-flat-icons-3.png"
     },
     {
       title: "Wash & Fold",
       description: "Complete washing, drying, and folding service for everyday clothes",
       price: "From ₹50/kg",
       features: ["Washing & Drying", "Folding", "Fabric Softener", "Same Day Service"],
-      image: "https://images.unsplash.com/photo-1562887189-c1321a30cedd?w=300&h=200&fit=crop"
+      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-laundry-cleaning-flaticons-flat-flaticons.png"
     },
     {
       title: "Ironing & Pressing",
       description: "Professional pressing for crisp, wrinkle-free clothing",
       price: "From ₹30",
       features: ["Professional Press", "Starch Options", "Hanger Service", "Quick Turnaround"],
-      image: "https://images.unsplash.com/photo-1574414656934-dd1f0c66bf2d?w=300&h=200&fit=crop"
+      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-iron-household-appliances-flaticons-flat-flaticons.png"
     },
     {
       title: "Alterations",
       description: "Expert tailoring and alterations for the perfect fit",
       price: "From ₹150",
       features: ["Hemming", "Taking In/Out", "Zipper Repair", "Custom Fitting"],
-      image: "https://images.unsplash.com/photo-1544441892-794166f1e3be?w=300&h=200&fit=crop"
+      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-sewing-machine-sewing-flaticons-flat-flaticons.png"
     },
     {
       title: "Comforters & Bedding",
       description: "Large item cleaning for comforters, blankets, and bedding",
       price: "From ₹250",
       features: ["Comforters", "Blankets", "Pillows", "Curtains"],
-      image: "https://images.unsplash.com/photo-1586580001113-9dc1729e2c5e?w=300&h=200&fit=crop"
+      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-bed-furniture-flaticons-flat-flaticons.png"
     },
     {
       title: "Wedding Dress Care",
       description: "Specialized cleaning and preservation for wedding dresses",
       price: "From ₹1500",
       features: ["Cleaning", "Preservation", "Storage Box", "Stain Treatment"],
-      image: "https://images.unsplash.com/photo-1594736797933-d0b022b3ee79?w=300&h=200&fit=crop"
+      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-wedding-dress-wedding-flaticons-flat-flaticons.png"
     }
   ];
 
@@ -56,7 +55,7 @@ const Services = () => {
       description: "Professional cleaning for all types of footwear",
       price: "From ₹100",
       features: ["Sports Shoes", "Leather Boots", "Branded Footwear", "Deep Cleaning"],
-      image: "https://images.unsplash.com/photo-1465479423260-c4afc24172c6?w=300&h=200&fit=crop",
+      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-shoes-cleaning-flaticons-flat-flaticons.png",
       icon: "👟"
     },
     {
@@ -64,7 +63,7 @@ const Services = () => {
       description: "Deep cleaning and stain removal for all carpet types",
       price: "From ₹200/sqm",
       features: ["Deep Steam Cleaning", "Stain Removal", "Odor Treatment", "Quick Drying"],
-      image: "https://images.unsplash.com/photo-1570213489059-0aac6626cade?w=300&h=200&fit=crop",
+      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-carpet-cleaning-flaticons-flat-flaticons.png",
       icon: "🧽"
     },
     {
@@ -72,7 +71,7 @@ const Services = () => {
       description: "Gentle cleaning for all types of curtains and drapes",
       price: "From ₹150/panel",
       features: ["Delicate Fabric Care", "Colour Protection", "Wrinkle-Free", "UV Protection"],
-      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=300&h=200&fit=crop",
+      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-curtains-home-flaticons-flat-flaticons.png",
       icon: "🪟"
     },
     {
@@ -80,7 +79,7 @@ const Services = () => {
       description: "Professional upholstery cleaning for sofas and furniture",
       price: "From ₹800",
       features: ["Fabric & Leather", "Deep Sanitization", "Stain Removal", "Odor Elimination"],
-      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=300&h=200&fit=crop",
+      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-sofa-furniture-flaticons-flat-flaticons.png",
       icon: "🛋️"
     },
     {
@@ -88,7 +87,7 @@ const Services = () => {
       description: "Thorough cleaning for doormats, bath mats, and floor mats",
       price: "From ₹80",
       features: ["All Mat Types", "Antibacterial Treatment", "Quick Drying", "Odor Removal"],
-      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=300&h=200&fit=crop",
+      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-doormat-cleaning-flaticons-flat-flaticons.png",
       icon: "🏠"
     },
     {
@@ -96,7 +95,7 @@ const Services = () => {
       description: "Cleaning service for various household fabric items",
       price: "From ₹50",
       features: ["Table Covers", "Cushion Covers", "Blankets", "Custom Items"],
-      image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&h=200&fit=crop",
+      image: "https://img.icons8.com/external-flaticons-flat-flaticons/512/external-table-cloth-household-flaticons-flat-flaticons.png",
       icon: "🏡"
     }
   ];
