@@ -11,42 +11,42 @@ const Services = () => {
       description: "Professional dry cleaning for delicate fabrics and formal wear",
       price: "From ₹80",
       features: ["Suits & Dresses", "Delicate Fabrics", "Stain Removal", "Press & Finish"],
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=300&h=200&fit=crop"
+      image: "https://images.unsplash.com/photo-1566554273541-37a9ca77b91b?w=300&h=200&fit=crop"
     },
     {
       title: "Wash & Fold",
       description: "Complete washing, drying, and folding service for everyday clothes",
       price: "From ₹50/kg",
       features: ["Washing & Drying", "Folding", "Fabric Softener", "Same Day Service"],
-      image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=300&h=200&fit=crop"
+      image: "https://images.unsplash.com/photo-1562887189-c1321a30cedd?w=300&h=200&fit=crop"
     },
     {
       title: "Ironing & Pressing",
       description: "Professional pressing for crisp, wrinkle-free clothing",
       price: "From ₹30",
       features: ["Professional Press", "Starch Options", "Hanger Service", "Quick Turnaround"],
-      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=300&h=200&fit=crop"
+      image: "https://images.unsplash.com/photo-1574414656934-dd1f0c66bf2d?w=300&h=200&fit=crop"
     },
     {
       title: "Alterations",
       description: "Expert tailoring and alterations for the perfect fit",
       price: "From ₹150",
       features: ["Hemming", "Taking In/Out", "Zipper Repair", "Custom Fitting"],
-      image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=300&h=200&fit=crop"
+      image: "https://images.unsplash.com/photo-1544441892-794166f1e3be?w=300&h=200&fit=crop"
     },
     {
       title: "Comforters & Bedding",
       description: "Large item cleaning for comforters, blankets, and bedding",
       price: "From ₹250",
       features: ["Comforters", "Blankets", "Pillows", "Curtains"],
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&h=200&fit=crop"
+      image: "https://images.unsplash.com/photo-1586580001113-9dc1729e2c5e?w=300&h=200&fit=crop"
     },
     {
       title: "Wedding Dress Care",
       description: "Specialized cleaning and preservation for wedding dresses",
       price: "From ₹1500",
       features: ["Cleaning", "Preservation", "Storage Box", "Stain Treatment"],
-      image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=300&h=200&fit=crop"
+      image: "https://images.unsplash.com/photo-1594736797933-d0b022b3ee79?w=300&h=200&fit=crop"
     }
   ];
 
@@ -56,7 +56,7 @@ const Services = () => {
       description: "Professional cleaning for all types of footwear",
       price: "From ₹100",
       features: ["Sports Shoes", "Leather Boots", "Branded Footwear", "Deep Cleaning"],
-      image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1465479423260-c4afc24172c6?w=300&h=200&fit=crop",
       icon: "👟"
     },
     {
@@ -64,7 +64,7 @@ const Services = () => {
       description: "Deep cleaning and stain removal for all carpet types",
       price: "From ₹200/sqm",
       features: ["Deep Steam Cleaning", "Stain Removal", "Odor Treatment", "Quick Drying"],
-      image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=300&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1570213489059-0aac6626cade?w=300&h=200&fit=crop",
       icon: "🧽"
     },
     {
@@ -88,7 +88,7 @@ const Services = () => {
       description: "Thorough cleaning for doormats, bath mats, and floor mats",
       price: "From ₹80",
       features: ["All Mat Types", "Antibacterial Treatment", "Quick Drying", "Odor Removal"],
-      image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=300&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=300&h=200&fit=crop",
       icon: "🏠"
     },
     {
@@ -96,7 +96,7 @@ const Services = () => {
       description: "Cleaning service for various household fabric items",
       price: "From ₹50",
       features: ["Table Covers", "Cushion Covers", "Blankets", "Custom Items"],
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&h=200&fit=crop",
       icon: "🏡"
     }
   ];
@@ -146,7 +146,7 @@ const Services = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Comprehensive cleaning services for clothes, footwear, and household items
+            Comprehensive cleaning services for clothes, footwear, and household items with 99% stain removal guarantee
           </p>
         </div>
 

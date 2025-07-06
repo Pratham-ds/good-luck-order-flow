@@ -20,7 +20,7 @@ const Footer = () => {
             </div>
             <p className="text-gray-400">
               Premium laundry and dry cleaning services with free pickup & delivery. 
-              Your clothes deserve the best care.
+              Your clothes deserve the best care with 99% stain removal guarantee.
             </p>
           </div>
 
@@ -65,7 +65,8 @@ const Footer = () => {
                 </div>
               </div>
               <div className="text-gray-400">
-                <p>Open Daily: 10:00 AM - 9:00 PM</p>
+                <p>Tuesday - Sunday: 10:00 AM - 9:00 PM</p>
+                <p className="text-red-400">Closed on Monday</p>
               </div>
             </div>
           </div>

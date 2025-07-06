@@ -4,8 +4,8 @@ import { Users, Award, Clock, MapPin } from 'lucide-react';
 
 const About = () => {
   const stats = [
-    { icon: Users, number: "10,000+", label: "Happy Customers" },
-    { icon: Award, number: "14+", label: "Years Experience" },
+    { icon: Users, number: "50,000+", label: "Happy Customers" },
+    { icon: Award, number: "55+", label: "Years Experience" },
     { icon: Clock, number: "48hr", label: "Turnaround Time" },
     { icon: MapPin, number: "5+", label: "Pickup Locations" }
   ];
@@ -20,7 +20,7 @@ const About = () => {
                 Why Choose Good Luck Drycleaners?
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                Since 2010, we've been providing exceptional laundry and dry cleaning services 
+                Since 1970, we've been providing exceptional laundry and dry cleaning services 
                 to our community. Our commitment to quality, convenience, and customer satisfaction 
                 has made us the trusted choice for thousands of families and businesses.
               </p>
@@ -35,7 +35,7 @@ const About = () => {
                   <h3 className="font-semibold text-gray-900 mb-2">Premium Quality</h3>
                   <p className="text-gray-600">
                     We use only the finest cleaning products and state-of-the-art equipment 
-                    to ensure your garments receive the best care possible.
+                    to ensure your garments receive the best care possible with 99% stain removal guarantee.
                   </p>
                 </div>
               </div>
@@ -78,7 +78,7 @@ const About = () => {
               <h3 className="text-xl font-bold text-gray-900 mb-3">Our Promise</h3>
               <p className="text-gray-600">
                 Every garment is treated with care and attention to detail. 
-                If you're not completely satisfied, we'll make it right.
+                With our 99% stain removal guarantee, if you're not completely satisfied, we'll make it right.
               </p>
             </div>
           </div>

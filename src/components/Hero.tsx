@@ -34,8 +34,8 @@ const Hero = () => {
               <div className="flex items-center space-x-3">
                 <CheckCircle className="w-6 h-6 text-green-600" />
                 <div>
-                  <p className="font-semibold text-gray-900">Quality Guaranteed</p>
-                  <p className="text-sm text-gray-600">100% satisfaction</p>
+                  <p className="font-semibold text-gray-900">99% Stain Removal</p>
+                  <p className="text-sm text-gray-600">Guaranteed</p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
@@ -64,8 +64,8 @@ const Hero = () => {
               />
             </div>
             <div className="absolute -bottom-6 -left-6 bg-blue-600 text-white p-4 rounded-xl shadow-lg">
-              <p className="font-bold text-lg">Since 2010</p>
-              <p className="text-sm">Trusted by 10,000+ customers</p>
+              <p className="font-bold text-lg">Since 1970</p>
+              <p className="text-sm">Trusted by 50,000+ customers</p>
             </div>
           </div>
         </div>
