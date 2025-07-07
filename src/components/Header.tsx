@@ -3,10 +3,14 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Phone, User, Menu, X } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isMobile = useIsMobile();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -21,9 +25,12 @@ const Header = () => {
     window.open(whatsappUrl, '_blank');
   };
 
-  const handleLogin = () => {
-    // Placeholder for login functionality
-    alert("Login functionality will be implemented soon!");
+  const handleAuthAction = () => {
+    if (user) {
+      navigate('/dashboard');
+    } else {
+      navigate('/auth');
+    }
   };
 
   return (
@@ -58,9 +65,9 @@ const Header = () => {
                 <Phone className="w-4 h-4 mr-2" />
                 Call Now
               </a>
-              <Button variant="outline" size="sm" onClick={handleLogin}>
+              <Button variant="outline" size="sm" onClick={handleAuthAction}>
                 <User className="w-4 h-4 mr-2" />
-                Login
+                {user ? 'Dashboard' : 'Login'}
               </Button>
               <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={handleBookNow}>
                 Book Now
@@ -85,9 +92,9 @@ const Header = () => {
               <button onClick={() => handleNavClick('about')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">About</button>
               <button onClick={() => handleNavClick('contact')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">Contact</button>
               <div className="flex flex-col space-y-2 pt-4 border-t">
-                <Button variant="outline" size="sm" onClick={handleLogin}>
+                <Button variant="outline" size="sm" onClick={handleAuthAction}>
                   <User className="w-4 h-4 mr-2" />
-                  Login
+                  {user ? 'Dashboard' : 'Login'}
                 </Button>
                 <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={handleBookNow}>
                   Book Now
