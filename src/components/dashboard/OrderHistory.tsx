@@ -18,7 +18,7 @@ interface Order {
   created_at: string;
   pickup_date: string;
   delivery_date: string;
-  items: any[];
+  items: any;
   addresses: {
     title: string;
     street_address: string;
@@ -50,7 +50,7 @@ const OrderHistory = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setOrders(data || []);
+      setOrders(data as Order[] || []);
     } catch (error: any) {
       toast({
         title: "Error",
@@ -63,7 +63,9 @@ const OrderHistory = () => {
   };
 
   const handleReorder = (order: Order) => {
-    const itemsList = order.items.map((item: any) => `${item.quantity}x ${item.name}`).join(', ');
+    const itemsList = Array.isArray(order.items) 
+      ? order.items.map((item: any) => `${item.quantity}x ${item.name}`).join(', ')
+      : 'Previous order items';
     const message = `Hi! I would like to reorder my previous service:\n\nOrder #${order.order_number}\nService: ${order.service_type.replace('_', ' ').toUpperCase()}\nItems: ${itemsList}\n\nPlease confirm the details and schedule pickup.`;
     const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');

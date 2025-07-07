@@ -5,17 +5,20 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 import Index from "./pages/Index";
 import AuthPage from "./components/auth/AuthPage";
 import CustomerDashboard from "./components/dashboard/CustomerDashboard";
+import AdminDashboard from "./components/admin/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const AppContent = () => {
   const { user, loading } = useAuth();
+  const { isAdmin, loading: adminLoading } = useAdminAuth();
 
-  if (loading) {
+  if (loading || adminLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
@@ -26,9 +29,18 @@ const AppContent = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={user ? <CustomerDashboard /> : <Index />} />
-        <Route path="/auth" element={user ? <CustomerDashboard /> : <AuthPage />} />
-        <Route path="/dashboard" element={user ? <CustomerDashboard /> : <AuthPage />} />
+        <Route path="/" element={
+          user ? (isAdmin ? <AdminDashboard /> : <CustomerDashboard />) : <Index />
+        } />
+        <Route path="/auth" element={
+          user ? (isAdmin ? <AdminDashboard /> : <CustomerDashboard />) : <AuthPage />
+        } />
+        <Route path="/dashboard" element={
+          user ? (isAdmin ? <AdminDashboard /> : <CustomerDashboard />) : <AuthPage />
+        } />
+        <Route path="/admin" element={
+          user && isAdmin ? <AdminDashboard /> : <AuthPage />
+        } />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

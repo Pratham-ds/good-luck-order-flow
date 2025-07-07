@@ -145,6 +145,7 @@ export type Database = {
           full_name: string | null
           id: string
           phone: string | null
+          role: Database["public"]["Enums"]["user_role"] | null
           updated_at: string | null
         }
         Insert: {
@@ -153,6 +154,7 @@ export type Database = {
           full_name?: string | null
           id: string
           phone?: string | null
+          role?: Database["public"]["Enums"]["user_role"] | null
           updated_at?: string | null
         }
         Update: {
@@ -161,6 +163,7 @@ export type Database = {
           full_name?: string | null
           id?: string
           phone?: string | null
+          role?: Database["public"]["Enums"]["user_role"] | null
           updated_at?: string | null
         }
         Relationships: []
@@ -183,6 +186,10 @@ export type Database = {
           suggestion_message: string
         }[]
       }
+      is_admin: {
+        Args: { user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       order_status:
@@ -198,6 +205,7 @@ export type Database = {
         | "shoe_cleaning"
         | "curtain_cleaning"
         | "sofa_cleaning"
+      user_role: "admin" | "customer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -340,6 +348,7 @@ export const Constants = {
         "curtain_cleaning",
         "sofa_cleaning",
       ],
+      user_role: ["admin", "customer"],
     },
   },
 } as const
