@@ -53,6 +53,7 @@ const Header = () => {
             <nav className="hidden md:flex items-center space-x-8">
               <button onClick={() => handleNavClick('home')} className="text-gray-700 hover:text-blue-600 transition-colors">Home</button>
               <button onClick={() => handleNavClick('services')} className="text-gray-700 hover:text-blue-600 transition-colors">Services</button>
+              <button onClick={() => handleNavClick('price-plans')} className="text-gray-700 hover:text-blue-600 transition-colors">Pricing</button>
               <button onClick={() => handleNavClick('about')} className="text-gray-700 hover:text-blue-600 transition-colors">About</button>
               <button onClick={() => handleNavClick('contact')} className="text-gray-700 hover:text-blue-600 transition-colors">Contact</button>
             </nav>
@@ -89,6 +90,7 @@ const Header = () => {
             <nav className="flex flex-col space-y-4 mt-4">
               <button onClick={() => handleNavClick('home')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">Home</button>
               <button onClick={() => handleNavClick('services')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">Services</button>
+              <button onClick={() => handleNavClick('price-plans')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">Pricing</button>
               <button onClick={() => handleNavClick('about')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">About</button>
               <button onClick={() => handleNavClick('contact')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">Contact</button>
               <div className="flex flex-col space-y-2 pt-4 border-t">

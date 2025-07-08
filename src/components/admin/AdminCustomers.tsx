@@ -6,6 +6,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from "@/hooks/use-toast";
 import { User, Phone, Mail, MapPin, RefreshCw } from 'lucide-react';
+import AdminCustomerEntry from './AdminCustomerEntry';
 
 interface Customer {
   id: string;
@@ -32,23 +33,32 @@ const AdminCustomers = () => {
     if (!user) return;
 
     try {
+      // Fetch profiles first
       const { data: profiles, error: profilesError } = await supabase
         .from('profiles')
-        .select(`
-          *,
-          addresses (
-            title,
-            street_address,
-            city
-          )
-        `)
+        .select('*')
         .eq('role', 'customer');
 
       if (profilesError) throw profilesError;
 
+      // Fetch addresses separately for each profile
+      const customersWithAddresses = await Promise.all(
+        (profiles || []).map(async (profile) => {
+          const { data: addresses } = await supabase
+            .from('addresses')
+            .select('title, street_address, city')
+            .eq('user_id', profile.id);
+          
+          return {
+            ...profile,
+            addresses: addresses || []
+          };
+        })
+      );
+
       // Get order statistics for each customer
       const customersWithStats = await Promise.all(
-        (profiles || []).map(async (profile) => {
+        customersWithAddresses.map(async (profile) => {
           const { data: orders, error: ordersError } = await supabase
             .from('orders')
             .select('total_amount')
@@ -104,10 +114,13 @@ const AdminCustomers = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Customer Management</h2>
-        <Button onClick={fetchCustomers} variant="outline" size="sm">
-          <RefreshCw className="w-4 h-4 mr-2" />
-          Refresh
-        </Button>
+        <div className="flex items-center space-x-2">
+          <AdminCustomerEntry />
+          <Button onClick={fetchCustomers} variant="outline" size="sm">
+            <RefreshCw className="w-4 h-4 mr-2" />
+            Refresh
+          </Button>
+        </div>
       </div>
 
       <div className="grid gap-6">

@@ -16,8 +16,8 @@ import { format } from 'date-fns';
 interface AdminOrder {
   id: string;
   order_number: string;
-  service_type: string;
-  status: string;
+  service_type: 'dry_cleaning' | 'laundry' | 'alterations' | 'shoe_cleaning' | 'curtain_cleaning' | 'sofa_cleaning';
+  status: 'scheduled' | 'picked_up' | 'in_process' | 'out_for_delivery' | 'delivered';
   total_amount: number;
   created_at: string;
   pickup_date: string;
@@ -48,31 +48,44 @@ const AdminOrderManagement = () => {
     if (!user) return;
 
     try {
-      let query = supabase
+      // Fetch orders first
+      let ordersQuery = supabase
         .from('orders')
-        .select(`
-          *,
-          addresses (
-            title,
-            street_address,
-            city
-          ),
-          profiles (
-            full_name,
-            phone,
-            email
-          )
-        `)
+        .select('*')
         .order('created_at', { ascending: false });
 
       if (statusFilter !== 'all') {
-        query = query.eq('status', statusFilter);
+        ordersQuery = ordersQuery.eq('status', statusFilter as any);
       }
 
-      const { data, error } = await query;
+      const { data: ordersData, error } = await ordersQuery;
 
       if (error) throw error;
-      setOrders(data as AdminOrder[] || []);
+
+      // Fetch related data separately
+      const ordersWithDetails = await Promise.all(
+        (ordersData || []).map(async (order) => {
+          const { data: address } = await supabase
+            .from('addresses')
+            .select('title, street_address, city')
+            .eq('id', order.address_id)
+            .single();
+
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('full_name, phone, email')
+            .eq('id', order.user_id)
+            .single();
+
+          return {
+            ...order,
+            addresses: address,
+            profiles: profile
+          };
+        })
+      );
+
+      setOrders(ordersWithDetails as AdminOrder[]);
     } catch (error: any) {
       toast({
         title: "Error",
@@ -84,7 +97,7 @@ const AdminOrderManagement = () => {
     }
   };
 
-  const updateOrderStatus = async (orderId: string, newStatus: string) => {
+  const updateOrderStatus = async (orderId: string, newStatus: 'scheduled' | 'picked_up' | 'in_process' | 'out_for_delivery' | 'delivered') => {
     try {
       const { error } = await supabase
         .from('orders')
@@ -108,7 +121,7 @@ const AdminOrderManagement = () => {
     }
   };
 
-  const updateOrder = async (orderId: string, updates: Partial<AdminOrder>) => {
+  const updateOrder = async (orderId: string, updates: any) => {
     try {
       const { error } = await supabase
         .from('orders')
@@ -231,7 +244,7 @@ const AdminOrderManagement = () => {
                             <Label>Status</Label>
                             <Select 
                               value={editingOrder.status}
-                              onValueChange={(value) => setEditingOrder({...editingOrder, status: value})}
+                              onValueChange={(value) => setEditingOrder({...editingOrder, status: value as any})}
                             >
                               <SelectTrigger>
                                 <SelectValue />
@@ -331,7 +344,7 @@ const AdminOrderManagement = () => {
                         key={status}
                         variant={order.status === status ? "default" : "outline"}
                         size="sm"
-                        onClick={() => updateOrderStatus(order.id, status)}
+                        onClick={() => updateOrderStatus(order.id, status as any)}
                       >
                         {status.replace('_', ' ').toUpperCase()}
                       </Button>
