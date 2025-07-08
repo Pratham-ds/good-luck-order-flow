@@ -1,11 +1,12 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from '@/integrations/supabase/client';
 import { Package, MapPin, Clock, User, LogOut, Plus, RefreshCw } from 'lucide-react';
 import OrderHistory from './OrderHistory';
 import AddressManager from './AddressManager';
@@ -16,6 +17,7 @@ const CustomerDashboard = () => {
   const { user, signOut } = useAuth();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const handleSignOut = async () => {
     try {
@@ -38,6 +40,81 @@ const CustomerDashboard = () => {
     const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
+
+  // Set up real-time subscriptions for orders, addresses, and profiles
+  useEffect(() => {
+    if (!user) return;
+
+    const ordersChannel = supabase
+      .channel('customer-orders')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'orders',
+          filter: `user_id=eq.${user.id}`
+        },
+        () => {
+          setRefreshKey(prev => prev + 1);
+        }
+      )
+      .subscribe();
+
+    const addressesChannel = supabase
+      .channel('customer-addresses')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'addresses',
+          filter: `user_id=eq.${user.id}`
+        },
+        () => {
+          setRefreshKey(prev => prev + 1);
+        }
+      )
+      .subscribe();
+
+    const trackingChannel = supabase
+      .channel('order-tracking')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'order_tracking'
+        },
+        () => {
+          setRefreshKey(prev => prev + 1);
+        }
+      )
+      .subscribe();
+
+    const profilesChannel = supabase
+      .channel('customer-profiles')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'profiles',
+          filter: `id=eq.${user.id}`
+        },
+        () => {
+          setRefreshKey(prev => prev + 1);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(ordersChannel);
+      supabase.removeChannel(addressesChannel);
+      supabase.removeChannel(trackingChannel);
+      supabase.removeChannel(profilesChannel);
+    };
+  }, [user]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -117,15 +194,15 @@ const CustomerDashboard = () => {
           </TabsContent>
 
           <TabsContent value="orders">
-            <OrderHistory />
+            <OrderHistory key={`orders-${refreshKey}`} />
           </TabsContent>
 
           <TabsContent value="tracking">
-            <OrderTracking />
+            <OrderTracking key={`tracking-${refreshKey}`} />
           </TabsContent>
 
           <TabsContent value="addresses">
-            <AddressManager />
+            <AddressManager key={`addresses-${refreshKey}`} />
           </TabsContent>
 
           <TabsContent value="profile">

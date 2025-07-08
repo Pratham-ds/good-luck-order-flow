@@ -2,10 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from "@/hooks/use-toast";
-import { User, Phone, Mail, MapPin, RefreshCw } from 'lucide-react';
+import { User, Phone, Mail, MapPin, RefreshCw, Edit, Plus } from 'lucide-react';
 import AdminCustomerEntry from './AdminCustomerEntry';
 
 interface Customer {
@@ -28,6 +31,14 @@ const AdminCustomers = () => {
   const { toast } = useToast();
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
+  const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
+  const [newAddress, setNewAddress] = useState({
+    title: '',
+    street_address: '',
+    city: '',
+    postal_code: '',
+    state: 'Maharashtra'
+  });
 
   const fetchCustomers = async () => {
     if (!user) return;
@@ -96,6 +107,64 @@ const AdminCustomers = () => {
     }
   };
 
+  const updateCustomerProfile = async (customerId: string, updates: any) => {
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update(updates)
+        .eq('id', customerId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Customer profile updated successfully",
+      });
+
+      setEditingCustomer(null);
+      fetchCustomers();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to update customer profile",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const addCustomerAddress = async (customerId: string) => {
+    try {
+      const { error } = await supabase
+        .from('addresses')
+        .insert({
+          user_id: customerId,
+          ...newAddress
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Address added successfully",
+      });
+
+      setNewAddress({
+        title: '',
+        street_address: '',
+        city: '',
+        postal_code: '',
+        state: 'Maharashtra'
+      });
+      fetchCustomers();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to add address",
+        variant: "destructive",
+      });
+    }
+  };
+
   useEffect(() => {
     fetchCustomers();
   }, [user]);
@@ -139,9 +208,126 @@ const AdminCustomers = () => {
                     </p>
                   </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-lg font-semibold text-green-600">₹{customer.total_spent}</p>
-                  <p className="text-sm text-gray-600">{customer.order_count} orders</p>
+                <div className="flex items-center space-x-2">
+                  <div className="text-right">
+                    <p className="text-lg font-semibold text-green-600">₹{customer.total_spent}</p>
+                    <p className="text-sm text-gray-600">{customer.order_count} orders</p>
+                  </div>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => setEditingCustomer(customer)}
+                      >
+                        <Edit className="w-4 h-4 mr-2" />
+                        Edit
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-2xl">
+                      <DialogHeader>
+                        <DialogTitle>Edit Customer - {customer.full_name}</DialogTitle>
+                      </DialogHeader>
+                      {editingCustomer && (
+                        <div className="space-y-4">
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <Label>Full Name</Label>
+                              <Input 
+                                value={editingCustomer.full_name || ''}
+                                onChange={(e) => setEditingCustomer({...editingCustomer, full_name: e.target.value})}
+                              />
+                            </div>
+                            <div>
+                              <Label>Phone</Label>
+                              <Input 
+                                value={editingCustomer.phone || ''}
+                                onChange={(e) => setEditingCustomer({...editingCustomer, phone: e.target.value})}
+                              />
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <Label>Email</Label>
+                            <Input 
+                              value={editingCustomer.email || ''}
+                              onChange={(e) => setEditingCustomer({...editingCustomer, email: e.target.value})}
+                            />
+                          </div>
+
+                          <div className="border-t pt-4">
+                            <h4 className="font-semibold mb-3">Add New Address</h4>
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <Label>Title</Label>
+                                <Input 
+                                  placeholder="Home, Office, etc."
+                                  value={newAddress.title}
+                                  onChange={(e) => setNewAddress({...newAddress, title: e.target.value})}
+                                />
+                              </div>
+                              <div>
+                                <Label>City</Label>
+                                <Input 
+                                  value={newAddress.city}
+                                  onChange={(e) => setNewAddress({...newAddress, city: e.target.value})}
+                                />
+                              </div>
+                            </div>
+                            <div className="mt-4">
+                              <Label>Street Address</Label>
+                              <Input 
+                                value={newAddress.street_address}
+                                onChange={(e) => setNewAddress({...newAddress, street_address: e.target.value})}
+                              />
+                            </div>
+                            <div className="grid grid-cols-2 gap-4 mt-4">
+                              <div>
+                                <Label>Postal Code</Label>
+                                <Input 
+                                  value={newAddress.postal_code}
+                                  onChange={(e) => setNewAddress({...newAddress, postal_code: e.target.value})}
+                                />
+                              </div>
+                              <div>
+                                <Label>State</Label>
+                                <Input 
+                                  value={newAddress.state}
+                                  onChange={(e) => setNewAddress({...newAddress, state: e.target.value})}
+                                />
+                              </div>
+                            </div>
+                            <Button 
+                              onClick={() => addCustomerAddress(editingCustomer.id)}
+                              className="mt-4"
+                              disabled={!newAddress.title || !newAddress.street_address || !newAddress.city}
+                            >
+                              <Plus className="w-4 h-4 mr-2" />
+                              Add Address
+                            </Button>
+                          </div>
+
+                          <div className="flex justify-end space-x-2 pt-4">
+                            <Button 
+                              variant="outline"
+                              onClick={() => setEditingCustomer(null)}
+                            >
+                              Cancel
+                            </Button>
+                            <Button 
+                              onClick={() => updateCustomerProfile(editingCustomer.id, {
+                                full_name: editingCustomer.full_name,
+                                phone: editingCustomer.phone,
+                                email: editingCustomer.email
+                              })}
+                            >
+                              Save Changes
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+                    </DialogContent>
+                  </Dialog>
                 </div>
               </div>
             </CardHeader>
