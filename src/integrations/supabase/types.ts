@@ -205,6 +205,7 @@ export type Database = {
         | "shoe_cleaning"
         | "curtain_cleaning"
         | "sofa_cleaning"
+        | "minor_repair"
       user_role: "admin" | "customer"
     }
     CompositeTypes: {
@@ -347,6 +348,7 @@ export const Constants = {
         "shoe_cleaning",
         "curtain_cleaning",
         "sofa_cleaning",
+        "minor_repair",
       ],
       user_role: ["admin", "customer"],
     },
