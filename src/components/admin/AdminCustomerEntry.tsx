@@ -36,7 +36,7 @@ const AdminCustomerEntry = () => {
   const serviceTypes = [
     { value: 'dry_cleaning', label: 'Dry Cleaning' },
     { value: 'laundry', label: 'Laundry' },
-    { value: 'alterations', label: 'Alterations' },
+    { value: 'minor_repair', label: 'Minor Repair' },
     { value: 'shoe_cleaning', label: 'Shoe Cleaning' },
     { value: 'curtain_cleaning', label: 'Curtain Cleaning' },
     { value: 'sofa_cleaning', label: 'Sofa Cleaning' }
@@ -138,7 +138,7 @@ const AdminCustomerEntry = () => {
           user_id: customerId,
           address_id: addressId,
           order_number: orderNumber,
-          service_type: formData.service_type as 'dry_cleaning' | 'laundry' | 'alterations' | 'shoe_cleaning' | 'curtain_cleaning' | 'sofa_cleaning',
+          service_type: formData.service_type as 'dry_cleaning' | 'laundry' | 'minor_repair' | 'shoe_cleaning' | 'curtain_cleaning' | 'sofa_cleaning',
           items: { description: formData.items },
           pickup_date: formData.pickup_date || null,
           delivery_date: formData.delivery_date || null,

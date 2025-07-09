@@ -39,12 +39,16 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-2 cursor-pointer" onClick={() => handleNavClick('home')}>
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-lg">GL</span>
+            <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">
+              <img 
+                src="/lovable-uploads/c38313f8-3060-4373-8bf7-4b20c9a6b26d.png" 
+                alt="Good Luck Drycleaners Logo" 
+                className="w-full h-full object-contain"
+              />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">Good Luck</h1>
-              <p className="text-sm text-blue-600">Drycleaners</p>
+              <h1 className="text-lg md:text-xl font-bold text-gray-900">Good Luck</h1>
+              <p className="text-xs md:text-sm text-blue-600">Drycleaners</p>
             </div>
           </div>
 

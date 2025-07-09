@@ -10,13 +10,13 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from "@/hooks/use-toast";
-import { Package, Calendar, MapPin, RefreshCw, Edit, User } from 'lucide-react';
+import { Package, Calendar, MapPin, RefreshCw, Edit, User, Plus } from 'lucide-react';
 import { format } from 'date-fns';
 
 interface AdminOrder {
   id: string;
   order_number: string;
-  service_type: 'dry_cleaning' | 'laundry' | 'alterations' | 'shoe_cleaning' | 'curtain_cleaning' | 'sofa_cleaning';
+  service_type: 'dry_cleaning' | 'laundry' | 'minor_repair' | 'shoe_cleaning' | 'curtain_cleaning' | 'sofa_cleaning';
   status: 'scheduled' | 'picked_up' | 'in_process' | 'out_for_delivery' | 'delivered';
   total_amount: number;
   created_at: string;
@@ -43,6 +43,17 @@ const AdminOrderManagement = () => {
   const [loading, setLoading] = useState(true);
   const [editingOrder, setEditingOrder] = useState<AdminOrder | null>(null);
   const [statusFilter, setStatusFilter] = useState('all');
+  const [showAddOrder, setShowAddOrder] = useState(false);
+  const [newOrder, setNewOrder] = useState({
+    user_id: '',
+    service_type: 'dry_cleaning' as 'dry_cleaning' | 'laundry' | 'minor_repair' | 'shoe_cleaning' | 'curtain_cleaning' | 'sofa_cleaning',
+    address_id: '',
+    pickup_date: '',
+    delivery_date: '',
+    total_amount: 0,
+    items: {},
+    special_instructions: ''
+  });
 
   const fetchOrders = async () => {
     if (!user) return;
@@ -146,6 +157,68 @@ const AdminOrderManagement = () => {
     }
   };
 
+  const addOrder = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('orders')
+        .insert([{
+          ...newOrder,
+          order_number: 'GL' + Date.now().toString().slice(-8),
+          items: newOrder.items || {}
+        }]);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Order added successfully",
+      });
+
+      setShowAddOrder(false);
+      setNewOrder({
+        user_id: '',
+        service_type: 'dry_cleaning',
+        address_id: '',
+        pickup_date: '',
+        delivery_date: '',
+        total_amount: 0,
+        items: {},
+        special_instructions: ''
+      });
+      fetchOrders();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to add order",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const deleteOrder = async (orderId: string) => {
+    try {
+      const { error } = await supabase
+        .from('orders')
+        .delete()
+        .eq('id', orderId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Order deleted successfully",
+      });
+
+      fetchOrders();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to delete order",
+        variant: "destructive",
+      });
+    }
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'scheduled': return 'bg-blue-100 text-blue-800';
@@ -201,6 +274,98 @@ const AdminOrderManagement = () => {
             <RefreshCw className="w-4 h-4 mr-2" />
             Refresh
           </Button>
+          <Dialog open={showAddOrder} onOpenChange={setShowAddOrder}>
+            <DialogTrigger asChild>
+              <Button size="sm">
+                <Plus className="w-4 h-4 mr-2" />
+                Add Order
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl">
+              <DialogHeader>
+                <DialogTitle>Add New Order</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div>
+                  <Label>Customer ID</Label>
+                  <Input 
+                    value={newOrder.user_id}
+                    onChange={(e) => setNewOrder({...newOrder, user_id: e.target.value})}
+                    placeholder="Enter customer UUID"
+                  />
+                </div>
+                <div>
+                  <Label>Service Type</Label>
+                  <Select 
+                    value={newOrder.service_type}
+                    onValueChange={(value) => setNewOrder({...newOrder, service_type: value as any})}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="dry_cleaning">Dry Cleaning</SelectItem>
+                      <SelectItem value="laundry">Laundry</SelectItem>
+                      <SelectItem value="minor_repair">Minor Repair</SelectItem>
+                      <SelectItem value="shoe_cleaning">Shoe Cleaning</SelectItem>
+                      <SelectItem value="curtain_cleaning">Curtain Cleaning</SelectItem>
+                      <SelectItem value="sofa_cleaning">Sofa Cleaning</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label>Address ID</Label>
+                  <Input 
+                    value={newOrder.address_id}
+                    onChange={(e) => setNewOrder({...newOrder, address_id: e.target.value})}
+                    placeholder="Enter address UUID"
+                  />
+                </div>
+                <div>
+                  <Label>Pickup Date</Label>
+                  <Input 
+                    type="date"
+                    value={newOrder.pickup_date}
+                    onChange={(e) => setNewOrder({...newOrder, pickup_date: e.target.value})}
+                  />
+                </div>
+                <div>
+                  <Label>Delivery Date</Label>
+                  <Input 
+                    type="date"
+                    value={newOrder.delivery_date}
+                    onChange={(e) => setNewOrder({...newOrder, delivery_date: e.target.value})}
+                  />
+                </div>
+                <div>
+                  <Label>Total Amount (₹)</Label>
+                  <Input 
+                    type="number"
+                    value={newOrder.total_amount}
+                    onChange={(e) => setNewOrder({...newOrder, total_amount: parseFloat(e.target.value) || 0})}
+                  />
+                </div>
+                <div>
+                  <Label>Special Instructions</Label>
+                  <Input 
+                    value={newOrder.special_instructions}
+                    onChange={(e) => setNewOrder({...newOrder, special_instructions: e.target.value})}
+                  />
+                </div>
+                <div className="flex justify-end space-x-2">
+                  <Button 
+                    variant="outline"
+                    onClick={() => setShowAddOrder(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button onClick={addOrder}>
+                    Add Order
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
 
@@ -223,17 +388,18 @@ const AdminOrderManagement = () => {
                   <Badge className={getStatusColor(order.status)}>
                     {order.status.replace('_', ' ').toUpperCase()}
                   </Badge>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => setEditingOrder(order)}
-                      >
-                        <Edit className="w-4 h-4 mr-2" />
-                        Edit
-                      </Button>
-                    </DialogTrigger>
+                  <div className="flex space-x-2">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => setEditingOrder(order)}
+                        >
+                          <Edit className="w-4 h-4 mr-2" />
+                          Edit
+                        </Button>
+                      </DialogTrigger>
                     <DialogContent className="max-w-2xl">
                       <DialogHeader>
                         <DialogTitle>Edit Order #{order.order_number}</DialogTitle>
@@ -312,6 +478,14 @@ const AdminOrderManagement = () => {
                       )}
                     </DialogContent>
                   </Dialog>
+                  <Button 
+                    variant="destructive" 
+                    size="sm"
+                    onClick={() => deleteOrder(order.id)}
+                  >
+                    Delete
+                  </Button>
+                </div>
                 </div>
               </div>
             </CardHeader>

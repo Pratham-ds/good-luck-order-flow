@@ -3,6 +3,12 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import dryCleaningIcon from "@/assets/dry-cleaning-icon.png";
+import laundryIcon from "@/assets/laundry-icon.png";
+import minorRepairIcon from "@/assets/minor-repair-icon.png";
+import shoeCleaningIcon from "@/assets/shoe-cleaning-icon.png";
+import curtainCleaningIcon from "@/assets/curtain-cleaning-icon.png";
+import sofaCleaningIcon from "@/assets/sofa-cleaning-icon.png";
 
 const Services = () => {
   const regularServices = [
@@ -11,42 +17,42 @@ const Services = () => {
       description: "Professional dry cleaning for delicate fabrics and formal wear",
       price: "From ₹80",
       features: ["Suits & Dresses", "Delicate Fabrics", "Stain Removal", "Press & Finish"],
-      image: "https://cdn-icons-png.flaticon.com/512/2719/2719507.png"
+      image: dryCleaningIcon
     },
     {
       title: "Wash & Fold",
       description: "Complete washing, drying, and folding service for everyday clothes",
       price: "From ₹50/kg",
       features: ["Washing & Drying", "Folding", "Fabric Softener", "Same Day Service"],
-      image: "https://cdn-icons-png.flaticon.com/512/2593/2593549.png"
+      image: laundryIcon
     },
     {
       title: "Ironing & Pressing",
       description: "Professional pressing for crisp, wrinkle-free clothing",
       price: "From ₹30",
       features: ["Professional Press", "Starch Options", "Hanger Service", "Quick Turnaround"],
-      image: "https://cdn-icons-png.flaticon.com/512/2719/2719784.png"
+      image: laundryIcon
     },
     {
-      title: "Alterations",
-      description: "Expert tailoring and alterations for the perfect fit",
+      title: "Minor Repair",
+      description: "Expert minor repairs and tailoring for the perfect fit",
       price: "From ₹150",
       features: ["Hemming", "Taking In/Out", "Zipper Repair", "Custom Fitting"],
-      image: "https://cdn-icons-png.flaticon.com/512/2719/2719669.png"
+      image: minorRepairIcon
     },
     {
       title: "Comforters & Bedding",
       description: "Large item cleaning for comforters, blankets, and bedding",
       price: "From ₹250",
       features: ["Comforters", "Blankets", "Pillows", "Curtains"],
-      image: "https://cdn-icons-png.flaticon.com/512/1168/1168843.png"
+      image: laundryIcon
     },
     {
       title: "Wedding Dress Care",
       description: "Specialized cleaning and preservation for wedding dresses",
       price: "From ₹1500",
       features: ["Cleaning", "Preservation", "Storage Box", "Stain Treatment"],
-      image: "https://cdn-icons-png.flaticon.com/512/1021/1021637.png"
+      image: dryCleaningIcon
     }
   ];
 
@@ -56,7 +62,7 @@ const Services = () => {
       description: "Professional cleaning for all types of footwear",
       price: "From ₹100",
       features: ["Sports Shoes", "Leather Boots", "Branded Footwear", "Deep Cleaning"],
-      image: "https://cdn-icons-png.flaticon.com/512/2553/2553738.png",
+      image: shoeCleaningIcon,
       icon: "👟"
     },
     {
@@ -64,7 +70,7 @@ const Services = () => {
       description: "Deep cleaning and stain removal for all carpet types",
       price: "From ₹200/sqm",
       features: ["Deep Steam Cleaning", "Stain Removal", "Odor Treatment", "Quick Drying"],
-      image: "https://cdn-icons-png.flaticon.com/512/2719/2719441.png",
+      image: laundryIcon,
       icon: "🧽"
     },
     {
@@ -72,7 +78,7 @@ const Services = () => {
       description: "Gentle cleaning for all types of curtains and drapes",
       price: "From ₹150/panel",
       features: ["Delicate Fabric Care", "Colour Protection", "Wrinkle-Free", "UV Protection"],
-      image: "https://cdn-icons-png.flaticon.com/512/1168/1168922.png",
+      image: curtainCleaningIcon,
       icon: "🪟"
     },
     {
@@ -80,7 +86,7 @@ const Services = () => {
       description: "Professional upholstery cleaning for sofas and furniture",
       price: "From ₹800",
       features: ["Fabric & Leather", "Deep Sanitization", "Stain Removal", "Odor Elimination"],
-      image: "https://cdn-icons-png.flaticon.com/512/1168/1168876.png",
+      image: sofaCleaningIcon,
       icon: "🛋️"
     },
     {
@@ -88,7 +94,7 @@ const Services = () => {
       description: "Thorough cleaning for doormats, bath mats, and floor mats",
       price: "From ₹80",
       features: ["All Mat Types", "Antibacterial Treatment", "Quick Drying", "Odor Removal"],
-      image: "https://cdn-icons-png.flaticon.com/512/2719/2719482.png",
+      image: laundryIcon,
       icon: "🏠"
     },
     {
@@ -96,7 +102,7 @@ const Services = () => {
       description: "Cleaning service for various household fabric items",
       price: "From ₹50",
       features: ["Table Covers", "Cushion Covers", "Blankets", "Custom Items"],
-      image: "https://cdn-icons-png.flaticon.com/512/1168/1168853.png",
+      image: laundryIcon,
       icon: "🏡"
     }
   ];
