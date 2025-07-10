@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import Index from "./pages/Index";
+import Booking from "./pages/Booking";
 import AuthPage from "./components/auth/AuthPage";
 import CustomerDashboard from "./components/dashboard/CustomerDashboard";
 import AdminDashboard from "./components/admin/AdminDashboard";
@@ -32,6 +33,7 @@ const AppContent = () => {
         <Route path="/" element={
           user ? (isAdmin ? <AdminDashboard /> : <CustomerDashboard />) : <Index />
         } />
+        <Route path="/booking" element={<Booking />} />
         <Route path="/auth" element={
           user ? (isAdmin ? <AdminDashboard /> : <CustomerDashboard />) : <AuthPage />
         } />

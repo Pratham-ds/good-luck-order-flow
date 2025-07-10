@@ -108,9 +108,24 @@ const Services = () => {
   ];
 
   const handleBookService = (serviceName: string) => {
-    const message = `Hi! I would like to book ${serviceName} service. Please provide more details about pricing and pickup schedule.`;
-    const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    // Convert service name to service type
+    const serviceMap: Record<string, string> = {
+      'Dry Cleaning': 'dry_cleaning',
+      'Wash & Fold': 'laundry',
+      'Ironing & Pressing': 'laundry',
+      'Minor Repair': 'minor_repair',
+      'Comforters & Bedding': 'laundry',
+      'Wedding Dress Care': 'dry_cleaning',
+      'Shoe & Boot Cleaning': 'shoe_cleaning',
+      'Carpet Cleaning': 'laundry',
+      'Curtain Cleaning': 'curtain_cleaning',
+      'Sofa Cleaning': 'sofa_cleaning',
+      'Mat Cleaning': 'laundry',
+      'Household Fabric Items': 'laundry'
+    };
+    
+    const serviceType = serviceMap[serviceName] || 'dry_cleaning';
+    window.location.href = `/booking?service=${serviceType}`;
   };
 
   const ServiceCard = ({ service, showIcon = false }: { service: any, showIcon?: boolean }) => (

@@ -5,36 +5,36 @@ import { Shirt, Crown, Home, HeartHandshake } from 'lucide-react';
 
 const PricePlans = () => {
   const menWear = [
-    { item: "Shirt/T-shirt", regular: "80/P", offer: "60/P" },
-    { item: "Jacket", regular: "300/P", offer: "180/P" },
-    { item: "Coat", regular: "280/P", offer: "180/P" },
-    { item: "Suit 2 P", regular: "280", offer: "200" },
-    { item: "Suit 3 P", regular: "350", offer: "290" },
-    { item: "Jeans/Trousers", regular: "85", offer: "65" },
-    { item: "Kurta/Pajama", regular: "180", offer: "120" }
+    { item: "Shirt/T-shirt", regular: "100/P", offer: "80/P" },
+    { item: "Jacket", regular: "320/P", offer: "200/P" },
+    { item: "Coat", regular: "300/P", offer: "200/P" },
+    { item: "Suit 2 P", regular: "300", offer: "220" },
+    { item: "Suit 3 P", regular: "370", offer: "310" },
+    { item: "Jeans/Trousers", regular: "105", offer: "85" },
+    { item: "Kurta/Pajama", regular: "200", offer: "140" }
   ];
 
   const womenWear = [
-    { item: "Saree", regular: "200", offer: "120+" },
-    { item: "Salwar", regular: "150", offer: "100" },
-    { item: "Lengha", regular: "400+", offer: "250+" },
-    { item: "Shawl", regular: "150", offer: "80" },
-    { item: "Kurta", regular: "180", offer: "100" },
-    { item: "Dress", regular: "100+", offer: "75" }
+    { item: "Saree", regular: "220", offer: "140+" },
+    { item: "Salwar", regular: "170", offer: "120" },
+    { item: "Lengha", regular: "420+", offer: "270+" },
+    { item: "Shawl", regular: "170", offer: "100" },
+    { item: "Kurta", regular: "200", offer: "120" },
+    { item: "Dress", regular: "120+", offer: "95" }
   ];
 
   const householdItems = [
-    { item: "S blanket S/D Layer", regular: "200/250", offer: "150/200" },
-    { item: "D blanket S/D Layer", regular: "350/500", offer: "260/300" },
-    { item: "Bedsheet S/D", regular: "180/250", offer: "80/120" },
-    { item: "Curtain (per panel)", regular: "150", offer: "80" },
-    { item: "Pillow cover (per pair)", regular: "60/pair", offer: "40" }
+    { item: "S blanket S/D Layer", regular: "220/270", offer: "170/220" },
+    { item: "D blanket S/D Layer", regular: "370/520", offer: "280/320" },
+    { item: "Bedsheet S/D", regular: "200/270", offer: "100/140" },
+    { item: "Curtain (per panel)", regular: "170", offer: "100" },
+    { item: "Pillow cover (per pair)", regular: "80/pair", offer: "60" }
   ];
 
   const shoesCleaning = [
-    { item: "Sports", regular: "250", offer: "200" },
-    { item: "Canvas", regular: "250", offer: "180" },
-    { item: "Boots", regular: "500+", offer: "350+" }
+    { item: "Sports", regular: "270", offer: "220" },
+    { item: "Canvas", regular: "270", offer: "200" },
+    { item: "Boots", regular: "520+", offer: "370+" }
   ];
 
   const PriceTable = ({ data, icon: Icon, title }: { data: any[], icon: any, title: string }) => (
