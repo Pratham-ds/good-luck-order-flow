@@ -36,7 +36,11 @@ interface AdminOrder {
   };
 }
 
-const AdminOrderManagement = () => {
+interface AdminOrderManagementProps {
+  onOrderUpdate?: () => void;
+}
+
+const AdminOrderManagement = ({ onOrderUpdate }: AdminOrderManagementProps = {}) => {
   const { user } = useAuth();
   const { toast } = useToast();
   const [orders, setOrders] = useState<AdminOrder[]>([]);
@@ -123,6 +127,7 @@ const AdminOrderManagement = () => {
       });
 
       fetchOrders();
+      onOrderUpdate?.();
     } catch (error: any) {
       toast({
         title: "Error",
@@ -148,6 +153,7 @@ const AdminOrderManagement = () => {
 
       setEditingOrder(null);
       fetchOrders();
+      onOrderUpdate?.();
     } catch (error: any) {
       toast({
         title: "Error",
@@ -186,6 +192,7 @@ const AdminOrderManagement = () => {
         special_instructions: ''
       });
       fetchOrders();
+      onOrderUpdate?.();
     } catch (error: any) {
       toast({
         title: "Error",
@@ -210,6 +217,7 @@ const AdminOrderManagement = () => {
       });
 
       fetchOrders();
+      onOrderUpdate?.();
     } catch (error: any) {
       toast({
         title: "Error",
