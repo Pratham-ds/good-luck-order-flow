@@ -49,6 +49,8 @@ const Header = () => {
             <div>
               <h1 className="text-lg md:text-xl font-bold text-gray-900">Good Luck</h1>
               <p className="text-xs md:text-sm text-blue-600">Drycleaners</p>
+              <p className="text-[10px] md:text-xs text-gray-500">(Since 1970)</p>
+
             </div>
           </div>
 
