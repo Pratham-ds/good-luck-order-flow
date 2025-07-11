@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, MapPin } from 'lucide-react';
@@ -12,9 +13,7 @@ const Hero = () => {
     if (user) {
       navigate('/booking');
     } else {
-      const message = "Hi! I would like to book a pickup for my laundry. Please let me know the available time slots.";
-      const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
-      window.open(whatsappUrl, '_blank');
+      navigate('/auth');
     }
   };
 
