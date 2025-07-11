@@ -8,6 +8,7 @@ const Hero = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  const handleBookPickup = () => {
     if (user) {
       navigate('/booking');
     } else {
