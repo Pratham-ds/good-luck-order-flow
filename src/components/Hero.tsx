@@ -9,12 +9,11 @@ const Hero = () => {
   const navigate = useNavigate();
 
   const handleBookPickup = () => {
-    if (user) {
-      navigate('/booking');
-    } else {
-      navigate('/auth');
-    }
+    const message = "Hi! I would like to schedule a pickup for my laundry service.";
+    const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
   };
+
 
   const handleViewServices = () => {
     document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
