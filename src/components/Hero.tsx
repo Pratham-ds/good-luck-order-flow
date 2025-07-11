@@ -1,13 +1,21 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, MapPin } from 'lucide-react';
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   const handleBookPickup = () => {
-    const message = "Hi! I would like to book a pickup for my laundry. Please let me know the available time slots.";
-    const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    if (user) {
+      navigate('/booking');
+    } else {
+      const message = "Hi! I would like to book a pickup for my laundry. Please let me know the available time slots.";
+      const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    }
   };
 
   const handleViewServices = () => {
