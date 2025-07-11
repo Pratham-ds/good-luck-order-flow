@@ -217,18 +217,20 @@ const BookingForm = ({ initialService, onSuccess }: BookingFormProps) => {
       if (error) throw error;
 
       // Send WhatsApp message
-      const whatsappMessage = `
-🏷️ New Order: ${orderNumber}
-👤 Customer: ${formData.name}
-📞 Phone: ${formData.phone}
-📅 Pickup: ${format(pickupDate, 'PPP')} (${formData.pickup_time})
-🧼 Service: ${formData.service_type.replace('_', ' ')}
-📦 Items: ${formData.items.map(item => `${item.name} x${item.quantity}`).join(', ')}
-${formData.special_instructions ? `📝 Instructions: ${formData.special_instructions}` : ''}
-      `.trim();
+      // -------------------- WHATSAPP SENDING DISABLED --------------------
+     // const whatsappMessage = `
+//🏷️ New Order: ${orderNumber}
+//👤 Customer: ${formData.name}
+//📞 Phone: ${formData.phone}
+//📅 Pickup: ${format(pickupDate, 'PPP')} (${formData.pickup_time})
+//🧼 Service: ${formData.service_type.replace('_', ' ')}
+//📦 Items: ${formData.items.map(item => `${item.name} x${item.quantity}`).join(', ')}
+//${formData.special_instructions ? `📝 Instructions: ${formData.special_instructions}` : ''}
+  //    `.trim();
 
-      const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(whatsappMessage)}`;
-      window.open(whatsappUrl, '_blank');
+     // const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(whatsappMessage)}`;
+     // window.open(whatsappUrl, '_blank');
+      // -------------------------------------------------------------------
 
       toast({
         title: "Order Placed Successfully!",
