@@ -209,6 +209,7 @@ const BookingForm = ({ initialService, onSuccess }: BookingFormProps) => {
           pickup_date: format(pickupDate, 'yyyy-MM-dd'),
           total_amount: null,
           special_instructions: formData.special_instructions,
+           phone: formData.phone,
           status: 'scheduled'
         })
         .select()
