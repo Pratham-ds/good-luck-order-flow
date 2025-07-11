@@ -44,32 +44,38 @@ const BookingForm = ({ initialService, onSuccess }: BookingFormProps) => {
       'Suit 3P',
       'Jeans/Trousers',
       'Kurta/Pajama'
+      'other'
     ],
     laundry: [
       'Regular Clothes',
       'Heavy Items',
       'Delicate Items'
+      'other'
     ],
     minor_repair: [
       'Hemming',
       'Taking In/Out',
       'Zipper Repair',
       'Button Replacement'
+      'other'
     ],
     shoe_cleaning: [
       'Sports Shoes',
       'Canvas Shoes',
       'Leather Boots'
+      'other'
     ],
     curtain_cleaning: [
       'Light Curtains',
       'Heavy Curtains',
       'Blackout Curtains'
+      'other'
     ],
     sofa_cleaning: [
       '2-Seater Sofa',
       '3-Seater Sofa',
       'Recliner'
+      'other'
     ]
   };
 
