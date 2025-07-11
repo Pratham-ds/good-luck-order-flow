@@ -12,12 +12,14 @@ import OrderHistory from './OrderHistory';
 import AddressManager from './AddressManager';
 import OrderTracking from './OrderTracking';
 import SmartSuggestions from './SmartSuggestions';
+import { useNavigate } from "react-router-dom";
 
 const CustomerDashboard = () => {
   const { user, signOut } = useAuth();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [refreshKey, setRefreshKey] = useState(0);
+  const navigate = useNavigate();
 
   const handleSignOut = async () => {
     try {
@@ -35,10 +37,12 @@ const CustomerDashboard = () => {
     }
   };
 
-  const handleBookService = () => {
-    const message = "Hi! I would like to book a service. Please help me place an order.";
-    const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+   const handleBookService = () => {
+    if (user) {
+      navigate('/booking');
+    } else {
+      navigate('/auth');
+    }
   };
 
   // Set up real-time subscriptions for orders, addresses, and profiles
