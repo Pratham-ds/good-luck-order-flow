@@ -19,13 +19,11 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
-  const handleBookNow = () => {
-    if (user) {
-      navigate('/booking');
-    } else {
-      navigate('/auth');
-    }
-  };
+ const handleBookNow = () => {
+  const message = "Hi! I would like to schedule a pickup for my drycleaning service.";
+  const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+};
 
   const handleAuthAction = () => {
     if (user) {
