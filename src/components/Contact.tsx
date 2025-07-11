@@ -82,6 +82,24 @@ const Contact = () => {
                     </button>
                   </div>
                 </div>
+                <div className="flex items-start space-x-4">
+  <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12l-4 4m0 0l-4-4m4 4V8" />
+    </svg>
+  </div>
+  <div>
+    <h4 className="font-semibold text-gray-900 mb-1">Email Support</h4>
+    <p className="text-gray-600">info@goodluckdryclean.com</p>
+    <a 
+      href="mailto:info@goodluckdryclean.com"
+      className="text-blue-600 hover:text-blue-700 font-medium"
+    >
+      Send Email →
+    </a>
+  </div>
+</div>
+
 
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
