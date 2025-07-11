@@ -46,12 +46,11 @@ const Header = () => {
                 className="w-full h-full object-contain"
               />
             </div>
-            <div>
-              <h1 className="text-lg md:text-xl font-bold text-gray-900">Good Luck</h1>
-              <p className="text-xs md:text-sm text-blue-600">Drycleaners</p>
-              <p className="text-[10px] md:text-xs text-gray-500">(Since 1970)</p>
-
-            </div>
+            <div className="leading-tight">
+  <h1 className="text-xl md:text-2xl font-extrabold text-blue-700 tracking-wide">Good Luck</h1>
+  <p className="text-sm md:text-base text-gray-700 font-medium">Drycleaners</p>
+  <p className="text-[11px] md:text-sm text-gray-500 italic">Since 1970</p>
+</div>
           </div>
 
           {/* Desktop Navigation */}
