@@ -20,9 +20,13 @@ const Header = () => {
   };
 
   const handleBookNow = () => {
-    const message = "Hi! I would like to book your laundry service. Please provide more details.";
-    const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    if (user) {
+      navigate('/booking');
+    } else {
+      const message = "Hi! I would like to book your laundry service. Please provide more details.";
+      const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    }
   };
 
   const handleAuthAction = () => {

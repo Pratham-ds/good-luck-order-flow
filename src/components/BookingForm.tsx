@@ -32,45 +32,44 @@ const BookingForm = ({ initialService, onSuccess }: BookingFormProps) => {
     service_type: initialService || '',
     items: [],
     pickup_time: '',
-    special_instructions: '',
-    estimated_amount: 0
+    special_instructions: ''
   });
 
   const serviceItems = {
     dry_cleaning: [
-      { name: 'Shirt/T-shirt', price: 80 },
-      { name: 'Jacket', price: 200 },
-      { name: 'Coat', price: 200 },
-      { name: 'Suit 2P', price: 220 },
-      { name: 'Suit 3P', price: 310 },
-      { name: 'Jeans/Trousers', price: 85 },
-      { name: 'Kurta/Pajama', price: 140 }
+      'Shirt/T-shirt',
+      'Jacket',
+      'Coat',
+      'Suit 2P',
+      'Suit 3P',
+      'Jeans/Trousers',
+      'Kurta/Pajama'
     ],
     laundry: [
-      { name: 'Regular Clothes', price: 50 },
-      { name: 'Heavy Items', price: 80 },
-      { name: 'Delicate Items', price: 70 }
+      'Regular Clothes',
+      'Heavy Items',
+      'Delicate Items'
     ],
     minor_repair: [
-      { name: 'Hemming', price: 150 },
-      { name: 'Taking In/Out', price: 200 },
-      { name: 'Zipper Repair', price: 180 },
-      { name: 'Button Replacement', price: 120 }
+      'Hemming',
+      'Taking In/Out',
+      'Zipper Repair',
+      'Button Replacement'
     ],
     shoe_cleaning: [
-      { name: 'Sports Shoes', price: 220 },
-      { name: 'Canvas Shoes', price: 200 },
-      { name: 'Leather Boots', price: 370 }
+      'Sports Shoes',
+      'Canvas Shoes',
+      'Leather Boots'
     ],
     curtain_cleaning: [
-      { name: 'Light Curtains', price: 100 },
-      { name: 'Heavy Curtains', price: 150 },
-      { name: 'Blackout Curtains', price: 180 }
+      'Light Curtains',
+      'Heavy Curtains',
+      'Blackout Curtains'
     ],
     sofa_cleaning: [
-      { name: '2-Seater Sofa', price: 800 },
-      { name: '3-Seater Sofa', price: 1200 },
-      { name: 'Recliner', price: 600 }
+      '2-Seater Sofa',
+      '3-Seater Sofa',
+      'Recliner'
     ]
   };
 
@@ -127,21 +126,18 @@ const BookingForm = ({ initialService, onSuccess }: BookingFormProps) => {
     }
   };
 
-  const handleItemToggle = (item: any, checked: boolean) => {
+  const handleItemToggle = (item: string, checked: boolean) => {
     setFormData(prev => {
       let newItems = [...prev.items];
       if (checked) {
-        newItems.push({ ...item, quantity: 1 });
+        newItems.push({ name: item, quantity: 1 });
       } else {
-        newItems = newItems.filter(i => i.name !== item.name);
+        newItems = newItems.filter(i => i.name !== item);
       }
-      
-      const newAmount = newItems.reduce((total, item) => total + (item.price * item.quantity), 0);
       
       return {
         ...prev,
-        items: newItems,
-        estimated_amount: newAmount
+        items: newItems
       };
     });
   };
@@ -152,12 +148,9 @@ const BookingForm = ({ initialService, onSuccess }: BookingFormProps) => {
         item.name === itemName ? { ...item, quantity: Math.max(1, quantity) } : item
       );
       
-      const newAmount = newItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-      
       return {
         ...prev,
-        items: newItems,
-        estimated_amount: newAmount
+        items: newItems
       };
     });
   };
@@ -208,7 +201,7 @@ const BookingForm = ({ initialService, onSuccess }: BookingFormProps) => {
           service_type: formData.service_type as any,
           items: formData.items,
           pickup_date: format(pickupDate, 'yyyy-MM-dd'),
-          total_amount: formData.estimated_amount,
+          total_amount: null,
           special_instructions: formData.special_instructions,
           status: 'scheduled'
         })
@@ -225,7 +218,6 @@ const BookingForm = ({ initialService, onSuccess }: BookingFormProps) => {
 📅 Pickup: ${format(pickupDate, 'PPP')} (${formData.pickup_time})
 🧼 Service: ${formData.service_type.replace('_', ' ')}
 📦 Items: ${formData.items.map(item => `${item.name} x${item.quantity}`).join(', ')}
-💰 Estimated Amount: ₹${formData.estimated_amount}
 ${formData.special_instructions ? `📝 Instructions: ${formData.special_instructions}` : ''}
       `.trim();
 
@@ -243,8 +235,7 @@ ${formData.special_instructions ? `📝 Instructions: ${formData.special_instruc
         service_type: '',
         items: [],
         pickup_time: '',
-        special_instructions: '',
-        estimated_amount: 0
+        special_instructions: ''
       }));
       setPickupDate(undefined);
 
@@ -332,7 +323,7 @@ ${formData.special_instructions ? `📝 Instructions: ${formData.special_instruc
             <Label>Service Type *</Label>
             <Select 
               value={formData.service_type} 
-              onValueChange={(value) => setFormData(prev => ({ ...prev, service_type: value, items: [], estimated_amount: 0 }))}
+              onValueChange={(value) => setFormData(prev => ({ ...prev, service_type: value, items: [] }))}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Select service type" />
@@ -354,7 +345,7 @@ ${formData.special_instructions ? `📝 Instructions: ${formData.special_instruc
               <Label className="text-base font-semibold">Select Items *</Label>
               <div className="grid md:grid-cols-2 gap-3 mt-3">
                 {currentItems.map((item, index) => {
-                  const selectedItem = formData.items.find(i => i.name === item.name);
+                  const selectedItem = formData.items.find(i => i.name === item);
                   return (
                     <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
                       <div className="flex items-center space-x-2">
@@ -362,14 +353,13 @@ ${formData.special_instructions ? `📝 Instructions: ${formData.special_instruc
                           checked={!!selectedItem}
                           onCheckedChange={(checked) => handleItemToggle(item, !!checked)}
                         />
-                        <span className="font-medium">{item.name}</span>
-                        <span className="text-sm text-gray-600">₹{item.price}</span>
+                        <span className="font-medium">{item}</span>
                       </div>
                       {selectedItem && (
                         <div className="flex items-center space-x-2">
                           <button
                             type="button"
-                            onClick={() => handleQuantityChange(item.name, selectedItem.quantity - 1)}
+                            onClick={() => handleQuantityChange(item, selectedItem.quantity - 1)}
                             className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-sm"
                           >
                             -
@@ -377,7 +367,7 @@ ${formData.special_instructions ? `📝 Instructions: ${formData.special_instruc
                           <span className="w-8 text-center">{selectedItem.quantity}</span>
                           <button
                             type="button"
-                            onClick={() => handleQuantityChange(item.name, selectedItem.quantity + 1)}
+                            onClick={() => handleQuantityChange(item, selectedItem.quantity + 1)}
                             className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-sm"
                           >
                             +
@@ -455,17 +445,15 @@ ${formData.special_instructions ? `📝 Instructions: ${formData.special_instruc
           {/* Order Summary */}
           {formData.items.length > 0 && (
             <div className="bg-blue-50 p-4 rounded-lg">
-              <h3 className="font-semibold mb-2">Order Summary</h3>
+              <h3 className="font-semibold mb-2">Selected Items</h3>
               <div className="space-y-1">
                 {formData.items.map((item, index) => (
-                  <div key={index} className="flex justify-between text-sm">
+                  <div key={index} className="text-sm">
                     <span>{item.name} x{item.quantity}</span>
-                    <span>₹{item.price * item.quantity}</span>
                   </div>
                 ))}
-                <div className="border-t pt-2 font-semibold flex justify-between">
-                  <span>Estimated Total:</span>
-                  <span>₹{formData.estimated_amount}</span>
+                <div className="border-t pt-2 text-sm text-gray-600">
+                  <span>Price will be confirmed by admin</span>
                 </div>
               </div>
             </div>
