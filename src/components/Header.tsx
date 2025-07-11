@@ -47,7 +47,7 @@ const Header = () => {
               />
             </div>
             <div className="leading-tight">
-  <h1 className="text-xl md:text-2xl font-extrabold text-blue-700 tracking-wide">Good Luck</h1>
+  <h1 className="text-xl md:text-2xl font-extrabold text-gray-700 tracking-wide">Good Luck</h1>
   <p className="text-sm md:text-base text-gray-700 font-medium">Drycleaners</p>
   <p className="text-[11px] md:text-sm text-gray-500 italic">Since 1970</p>
 </div>
