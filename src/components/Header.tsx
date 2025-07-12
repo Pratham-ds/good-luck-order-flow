@@ -21,7 +21,7 @@ const Header = () => {
 
  const handleBookNow = () => {
   const message = "Hi! I would like to schedule a pickup for my drycleaning service.";
-  const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
+  const whatsappUrl = `https://wa.me/918171897209?text=${encodeURIComponent(message)}`;
   window.open(whatsappUrl, '_blank');
 };
 
@@ -77,7 +77,7 @@ const Header = () => {
           {/* Desktop CTA Buttons */}
           {!isMobile && (
             <div className="hidden md:flex items-center space-x-4">
-              <a href="tel:+918171647906" className="flex items-center text-blue-600 hover:text-blue-800">
+              <a href="tel:+918171897209" className="flex items-center text-blue-600 hover:text-blue-800">
                 <Phone className="w-4 h-4 mr-2" />
                 Call Now
               </a>
