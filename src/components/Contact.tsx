@@ -21,7 +21,7 @@ const Contact = () => {
     
     // Create WhatsApp message with form data
     const whatsappMessage = `Hi! I'm ${formData.name}. Phone: ${formData.phone}${formData.email ? `, Email: ${formData.email}` : ''}. Message: ${formData.message}`;
-    const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappUrl = `https://wa.me/918171897209?text=${encodeURIComponent(whatsappMessage)}`;
     
     // Open WhatsApp
     window.open(whatsappUrl, '_blank');
@@ -48,7 +48,7 @@ const Contact = () => {
   };
 
   const handleCallClick = () => {
-    window.location.href = "tel:+918171647906";
+    window.location.href = "tel:+918171897209";
   };
 
   return (
@@ -73,7 +73,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">Phone & WhatsApp</h4>
-                    <p className="text-gray-600">+91 8171647906</p>
+                    <p className="text-gray-600">+91 8171897209</p>
                     <button 
                       onClick={handleWhatsAppClick}
                       className="text-green-600 hover:text-green-700 font-medium"
