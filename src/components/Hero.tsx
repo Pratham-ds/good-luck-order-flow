@@ -10,7 +10,7 @@ const Hero = () => {
 
   const handleBookPickup = () => {
     const message = "Hi! I would like to schedule a pickup for my laundry service.";
-    const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/918171897209?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
