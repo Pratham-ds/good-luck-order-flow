@@ -48,12 +48,12 @@ const Header = () => {
             </div>
            <div className="text-center leading-tight">
   {/* Main Brand Title */}
-  <h1 className="text-xl md:text-2xl font-extrabold text-orange-700 tracking-wide relative inline-block">
+  <h1 className="text-xl md:text-2xl font-extrabold text-black-700 tracking-wide relative inline-block">
     Good Luck
 
     {/* Divider and Subheading */}
     <div className="w-full flex flex-col items-center mt-1">
-      <div className="w-10 h-0.5 bg-gray-400 mb-1"></div>
+      <div className="w-10 h-0.5 bg-blue-400 mb-1"></div>
       <p className="text-sm md:text-base text-gray-700 font-medium">
         Drycleaners
       </p>
