@@ -17,17 +17,16 @@ export const useAdminAuth = () => {
       }
 
       try {
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', user.id)
-          .single();
+        // Use the is_admin RPC function which checks user_roles table
+        const { data, error } = await supabase.rpc('is_admin', {
+          user_id: user.id
+        });
 
         if (error) {
           console.error('Error checking admin status:', error);
           setIsAdmin(false);
         } else {
-          setIsAdmin(data?.role === 'admin');
+          setIsAdmin(data === true);
         }
       } catch (error) {
         console.error('Error checking admin status:', error);

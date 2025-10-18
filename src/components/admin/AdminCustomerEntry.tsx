@@ -79,8 +79,7 @@ const AdminCustomerEntry = () => {
             id: profileId,
             full_name: formData.full_name,
             email: formData.email,
-            phone: formData.phone,
-            role: 'customer' as 'customer'
+            phone: formData.phone
           })
           .select()
           .single();

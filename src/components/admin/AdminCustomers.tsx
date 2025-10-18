@@ -44,11 +44,26 @@ const AdminCustomers = () => {
     if (!user) return;
 
     try {
-      // Fetch profiles first
+      // Fetch customer role IDs from user_roles table
+      const { data: customerRoles, error: rolesError } = await supabase
+        .from('user_roles')
+        .select('user_id')
+        .eq('role', 'customer');
+
+      if (rolesError) throw rolesError;
+
+      const customerIds = customerRoles?.map(r => r.user_id) || [];
+
+      if (customerIds.length === 0) {
+        setCustomers([]);
+        return;
+      }
+
+      // Fetch profiles for customers
       const { data: profiles, error: profilesError } = await supabase
         .from('profiles')
         .select('*')
-        .eq('role', 'customer');
+        .in('id', customerIds);
 
       if (profilesError) throw profilesError;
 
