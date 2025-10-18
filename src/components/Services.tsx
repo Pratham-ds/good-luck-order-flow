@@ -107,26 +107,13 @@ const Services = () => {
     }
   ];
 
-  const handleBookService = (serviceName: string) => {
-    // Convert service name to service type
-    const serviceMap: Record<string, string> = {
-      'Dry Cleaning': 'dry_cleaning',
-      'Wash & Fold': 'laundry',
-      'Ironing & Pressing': 'laundry',
-      'Minor Repair': 'minor_repair',
-      'Comforters & Bedding': 'laundry',
-      'Wedding Dress Care': 'dry_cleaning',
-      'Shoe & Boot Cleaning': 'shoe_cleaning',
-      'Carpet Cleaning': 'laundry',
-      'Curtain Cleaning': 'curtain_cleaning',
-      'Sofa Cleaning': 'sofa_cleaning',
-      'Mat Cleaning': 'laundry',
-      'Household Fabric Items': 'laundry'
-    };
-    
-    const serviceType = serviceMap[serviceName] || 'dry_cleaning';
-    window.location.href = `/booking?service=${serviceType}`;
-  };
+ const handleBookService = (serviceName: string) => {
+  const phoneNumber = "918171897209"; // WhatsApp number (without +)
+  const message = `Hello Good Luck Drycleaners! I would like to book your "${serviceName}" service. Please provide details.`;
+  const encodedMessage = encodeURIComponent(message);
+
+  window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
+};
 
   const ServiceCard = ({ service, showIcon = false }: { service: any, showIcon?: boolean }) => (
     <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
