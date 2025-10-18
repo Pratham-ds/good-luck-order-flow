@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, MapPin } from 'lucide-react';
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import heroImage from "@/assets/hero-dryclean.png";
 
 const Hero = () => {
   const { user } = useAuth();
@@ -82,8 +83,8 @@ const Hero = () => {
           <div className="relative">
             <div className="bg-white rounded-2xl shadow-2xl p-8 transform rotate-2 hover:rotate-0 transition-transform duration-300">
               <img 
-                src="https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=500&h=400&fit=crop" 
-                alt="Clean laundry" 
+                src={heroImage} 
+                alt="Professional dry cleaning services with modern equipment and clean clothes" 
                 className="rounded-xl w-full h-80 object-cover"
               />
             </div>

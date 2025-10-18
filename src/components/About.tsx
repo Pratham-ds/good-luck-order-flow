@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { CheckCircle, Users, Award, Clock } from 'lucide-react';
+import missionImage from "@/assets/mission-laundry.png";
 
 const About = () => {
   return (
@@ -124,8 +124,8 @@ const About = () => {
             </div>
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&h=400&fit=crop" 
-                alt="Modern dry cleaning facility" 
+                src={missionImage} 
+                alt="Professional laundry and dry cleaning facility with washing machines and folded clothes" 
                 className="rounded-xl w-full h-80 object-cover"
               />
               <div className="absolute inset-0 bg-blue-600 bg-opacity-10 rounded-xl"></div>
