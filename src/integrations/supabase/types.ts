@@ -7,10 +7,10 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.3 (519615d)"
+    PostgrestVersion: "13.0.5"
   }
   public: {
     Tables: {
@@ -90,6 +90,7 @@ export type Database = {
           id: string
           items: Json
           order_number: string
+          phone: string | null
           pickup_date: string | null
           service_type: Database["public"]["Enums"]["service_type"]
           special_instructions: string | null
@@ -105,6 +106,7 @@ export type Database = {
           id?: string
           items: Json
           order_number: string
+          phone?: string | null
           pickup_date?: string | null
           service_type: Database["public"]["Enums"]["service_type"]
           special_instructions?: string | null
@@ -120,6 +122,7 @@ export type Database = {
           id?: string
           items?: Json
           order_number?: string
+          phone?: string | null
           pickup_date?: string | null
           service_type?: Database["public"]["Enums"]["service_type"]
           special_instructions?: string | null
@@ -180,9 +183,9 @@ export type Database = {
       get_reorder_suggestions: {
         Args: { user_uuid: string }
         Returns: {
+          days_since_last_order: number
           last_order_date: string
           service_type: Database["public"]["Enums"]["service_type"]
-          days_since_last_order: number
           suggestion_message: string
         }[]
       }
