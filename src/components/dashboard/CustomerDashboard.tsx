@@ -19,6 +19,8 @@ const CustomerDashboard = () => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [refreshKey, setRefreshKey] = useState(0);
+  const [activeOrdersCount, setActiveOrdersCount] = useState(0);
+  const [savedAddressesCount, setSavedAddressesCount] = useState(0);
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
@@ -44,6 +46,38 @@ const CustomerDashboard = () => {
       navigate('/auth');
     }
   };
+
+  // Fetch dashboard counts
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      if (!user) return;
+
+      try {
+        // Fetch active orders count (non-delivered orders)
+        const { count: activeCount, error: ordersError } = await supabase
+          .from('orders')
+          .select('*', { count: 'exact', head: true })
+          .eq('user_id', user.id)
+          .neq('status', 'delivered');
+
+        if (ordersError) throw ordersError;
+        setActiveOrdersCount(activeCount || 0);
+
+        // Fetch saved addresses count
+        const { count: addressCount, error: addressError } = await supabase
+          .from('addresses')
+          .select('*', { count: 'exact', head: true })
+          .eq('user_id', user.id);
+
+        if (addressError) throw addressError;
+        setSavedAddressesCount(addressCount || 0);
+      } catch (error: any) {
+        console.error('Error fetching dashboard data:', error);
+      }
+    };
+
+    fetchDashboardData();
+  }, [user, refreshKey]);
 
   // Set up real-time subscriptions for orders, addresses, and profiles
   useEffect(() => {
@@ -165,25 +199,15 @@ const CustomerDashboard = () => {
           </TabsList>
 
           <TabsContent value="dashboard" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Active Orders</CardTitle>
                   <Package className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">0</div>
+                  <div className="text-2xl font-bold">{activeOrdersCount}</div>
                   <p className="text-xs text-muted-foreground">Currently being processed</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
-                  <Clock className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">0</div>
-                  <p className="text-xs text-muted-foreground">All time orders</p>
                 </CardContent>
               </Card>
               <Card>
@@ -192,7 +216,7 @@ const CustomerDashboard = () => {
                   <MapPin className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">0</div>
+                  <div className="text-2xl font-bold">{savedAddressesCount}</div>
                   <p className="text-xs text-muted-foreground">For quick booking</p>
                 </CardContent>
               </Card>
