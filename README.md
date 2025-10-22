@@ -42,3 +42,5 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+
+for more info email-pk8507920@gmail.com
