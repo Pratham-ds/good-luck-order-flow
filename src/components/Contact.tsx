@@ -43,7 +43,7 @@ const Contact = () => {
 
   const handleWhatsAppClick = () => {
     const message = "Hi! I would like to know more about your services.";
-    const whatsappUrl = `https://wa.me/918171647906?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/918171897209?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
