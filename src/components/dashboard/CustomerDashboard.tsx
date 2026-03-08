@@ -7,11 +7,12 @@ import { Badge } from "@/components/ui/badge";
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from '@/integrations/supabase/client';
-import { Package, MapPin, Clock, User, LogOut, Plus, RefreshCw } from 'lucide-react';
+import { Package, MapPin, Clock, User, LogOut, Plus, RefreshCw, Trophy } from 'lucide-react';
 import OrderHistory from './OrderHistory';
 import AddressManager from './AddressManager';
 import OrderTracking from './OrderTracking';
 import SmartSuggestions from './SmartSuggestions';
+import LoyaltyRewards from './LoyaltyRewards';
 import { useNavigate } from "react-router-dom";
 
 const CustomerDashboard = () => {
