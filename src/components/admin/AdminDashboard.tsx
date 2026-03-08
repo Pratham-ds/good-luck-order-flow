@@ -147,14 +147,26 @@ const AdminDashboard = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6">
             <TabsTrigger value="orders">
               <Package className="w-4 h-4 mr-2" />
-              Order Management
+              Orders
             </TabsTrigger>
             <TabsTrigger value="customers">
               <Users className="w-4 h-4 mr-2" />
               Customers
+            </TabsTrigger>
+            <TabsTrigger value="prices">
+              <DollarSign className="w-4 h-4 mr-2" />
+              Prices
+            </TabsTrigger>
+            <TabsTrigger value="testimonials">
+              <MessageSquare className="w-4 h-4 mr-2" />
+              Testimonials
+            </TabsTrigger>
+            <TabsTrigger value="offers">
+              <Sparkles className="w-4 h-4 mr-2" />
+              Offers
             </TabsTrigger>
             <TabsTrigger value="settings">
               <Settings className="w-4 h-4 mr-2" />
@@ -168,6 +180,18 @@ const AdminDashboard = () => {
 
           <TabsContent value="customers">
             <AdminCustomers />
+          </TabsContent>
+
+          <TabsContent value="prices">
+            <AdminPriceItems />
+          </TabsContent>
+
+          <TabsContent value="testimonials">
+            <AdminTestimonials />
+          </TabsContent>
+
+          <TabsContent value="offers">
+            <AdminSpecialOffers />
           </TabsContent>
 
           <TabsContent value="settings">
