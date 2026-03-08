@@ -12,6 +12,7 @@ import AuthPage from "./components/auth/AuthPage";
 import CustomerDashboard from "./components/dashboard/CustomerDashboard";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import NotFound from "./pages/NotFound";
+import ResetPassword from "./pages/ResetPassword";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,7 @@ const AppContent = () => {
         <Route path="/admin" element={
           user && isAdmin ? <AdminDashboard /> : <AuthPage />
         } />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
