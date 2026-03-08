@@ -191,11 +191,15 @@ const CustomerDashboard = () => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
             <TabsTrigger value="orders">My Orders</TabsTrigger>
             <TabsTrigger value="tracking">Track Orders</TabsTrigger>
             <TabsTrigger value="addresses">Addresses</TabsTrigger>
+            <TabsTrigger value="loyalty" className="flex items-center gap-1">
+              <Trophy className="w-3 h-3" />
+              Loyalty
+            </TabsTrigger>
             <TabsTrigger value="profile">Profile</TabsTrigger>
           </TabsList>
 
