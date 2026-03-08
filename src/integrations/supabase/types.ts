@@ -50,6 +50,39 @@ export type Database = {
         }
         Relationships: []
       }
+      loyalty_rewards: {
+        Row: {
+          created_at: string | null
+          id: string
+          milestone: number
+          redeemed: boolean
+          redeemed_at: string | null
+          reward_type: string
+          reward_value: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          milestone: number
+          redeemed?: boolean
+          redeemed_at?: string | null
+          reward_type?: string
+          reward_value?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          milestone?: number
+          redeemed?: boolean
+          redeemed_at?: string | null
+          reward_type?: string
+          reward_value?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       order_tracking: {
         Row: {
           created_at: string | null
@@ -195,6 +228,16 @@ export type Database = {
     }
     Functions: {
       generate_order_number: { Args: never; Returns: string }
+      get_loyalty_status: {
+        Args: { user_uuid: string }
+        Returns: {
+          available_rewards: number
+          current_milestone: number
+          next_milestone: number
+          orders_to_next: number
+          total_delivered_orders: number
+        }[]
+      }
       get_reorder_suggestions: {
         Args: { user_uuid: string }
         Returns: {
