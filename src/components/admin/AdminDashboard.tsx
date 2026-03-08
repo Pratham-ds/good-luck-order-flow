@@ -6,10 +6,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from '@/integrations/supabase/client';
-import { LogOut, Settings, Users, Package, TrendingUp, Clock, CheckCircle } from 'lucide-react';
+import { LogOut, Settings, Users, Package, TrendingUp, Clock, CheckCircle, MessageSquare, Sparkles, DollarSign } from 'lucide-react';
 import AdminOrderManagement from './AdminOrderManagement';
 import AdminCustomers from './AdminCustomers';
 import AdminSettings from './AdminSettings';
+import AdminTestimonials from './AdminTestimonials';
+import AdminSpecialOffers from './AdminSpecialOffers';
+import AdminPriceItems from './AdminPriceItems';
 
 const AdminDashboard = () => {
   const { user, signOut } = useAuth();
