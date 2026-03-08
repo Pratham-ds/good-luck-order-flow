@@ -263,6 +263,10 @@ const AuthPage = () => {
                 </Button>
               </form>
             </TabsContent>
+
+            <TabsContent value="forgot">
+              <ForgotPasswordForm />
+            </TabsContent>
           </Tabs>
         </CardContent>
       </Card>

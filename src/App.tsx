@@ -44,6 +44,7 @@ const AppContent = () => {
         <Route path="/admin" element={
           user && isAdmin ? <AdminDashboard /> : <AuthPage />
         } />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
