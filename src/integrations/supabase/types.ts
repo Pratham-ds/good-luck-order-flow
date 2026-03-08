@@ -174,6 +174,39 @@ export type Database = {
           },
         ]
       }
+      price_items: {
+        Row: {
+          category: string
+          created_at: string | null
+          id: string
+          is_active: boolean
+          item_name: string
+          offer_price: string
+          regular_price: string
+          sort_order: number
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          id?: string
+          is_active?: boolean
+          item_name: string
+          offer_price: string
+          regular_price: string
+          sort_order?: number
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          id?: string
+          is_active?: boolean
+          item_name?: string
+          offer_price?: string
+          regular_price?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string | null
@@ -198,6 +231,66 @@ export type Database = {
           id?: string
           phone?: string | null
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      special_offers: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          discount_text: string
+          id: string
+          is_active: boolean
+          title: string
+          valid_until: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          discount_text: string
+          id?: string
+          is_active?: boolean
+          title: string
+          valid_until?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          discount_text?: string
+          id?: string
+          is_active?: boolean
+          title?: string
+          valid_until?: string | null
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          created_at: string | null
+          customer_location: string | null
+          customer_name: string
+          id: string
+          is_active: boolean
+          message: string
+          rating: number
+        }
+        Insert: {
+          created_at?: string | null
+          customer_location?: string | null
+          customer_name: string
+          id?: string
+          is_active?: boolean
+          message: string
+          rating?: number
+        }
+        Update: {
+          created_at?: string | null
+          customer_location?: string | null
+          customer_name?: string
+          id?: string
+          is_active?: boolean
+          message?: string
+          rating?: number
         }
         Relationships: []
       }
