@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Phone, User, Menu, X } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -8,9 +8,16 @@ import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const isMobile = useIsMobile();
   const { user } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -19,11 +26,11 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
- const handleBookNow = () => {
-  const message = "Hi! I would like to schedule a pickup for my drycleaning service.";
-  const whatsappUrl = `https://wa.me/918171897209?text=${encodeURIComponent(message)}`;
-  window.open(whatsappUrl, '_blank');
-};
+  const handleBookNow = () => {
+    const message = "Hi! I would like to schedule a pickup for my drycleaning service.";
+    const whatsappUrl = `https://wa.me/918171897209?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   const handleAuthAction = () => {
     if (user) {
@@ -34,86 +41,95 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-lg sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-4">
+    <header className={`sticky top-0 z-50 transition-all duration-500 ${
+      scrolled 
+        ? 'bg-card/95 backdrop-blur-xl shadow-premium border-b border-border' 
+        : 'bg-transparent'
+    }`}>
+      <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2 cursor-pointer" onClick={() => handleNavClick('home')}>
-            <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">
+          <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => handleNavClick('home')}>
+            <div className="w-11 h-11 md:w-13 md:h-13 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
               <img 
                 src="/lovable-uploads/c38313f8-3060-4373-8bf7-4b20c9a6b26d.png" 
                 alt="Good Luck Drycleaners Logo" 
                 className="w-full h-full object-contain"
               />
             </div>
-           <div className="text-center leading-tight">
-  {/* Main Brand Title */}
-  <h1 className="text-xl md:text-2xl font-extrabold text-black-700 tracking-wide relative inline-block">
-    Good Luck
-
-    {/* Divider and Subheading */}
-    <div className="w-full flex flex-col items-center mt-1">
-      <div className="w-10 h-0.5 bg-blue-400 mb-1"></div>
-      <p className="text-sm md:text-base text-gray-700 font-medium">
-        Drycleaners
-      </p>
-    </div>
-  </h1>
-  <p className="text-[11px] md:text-sm text-gray-500 italic">(Since 1970)</p>
-</div>
+            <div className="leading-tight">
+              <h1 className="text-xl md:text-2xl font-display font-bold text-foreground tracking-tight">
+                Good Luck
+              </h1>
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-[2px] bg-secondary rounded-full"></div>
+                <p className="text-sm text-muted-foreground font-medium tracking-wide uppercase">
+                  Drycleaners
+                </p>
+              </div>
+              <p className="text-[10px] text-muted-foreground italic">Est. 1970</p>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
           {!isMobile && (
-            <nav className="hidden md:flex items-center space-x-8">
-              <button onClick={() => handleNavClick('home')} className="text-gray-700 hover:text-blue-600 transition-colors">Home</button>
-              <button onClick={() => handleNavClick('services')} className="text-gray-700 hover:text-blue-600 transition-colors">Services</button>
-              <button onClick={() => handleNavClick('price-plans')} className="text-gray-700 hover:text-blue-600 transition-colors">Pricing</button>
-              <button onClick={() => handleNavClick('about')} className="text-gray-700 hover:text-blue-600 transition-colors">About</button>
-              <button onClick={() => handleNavClick('contact')} className="text-gray-700 hover:text-blue-600 transition-colors">Contact</button>
+            <nav className="hidden md:flex items-center space-x-1">
+              {['home', 'services', 'price-plans', 'about', 'contact'].map((section) => (
+                <button 
+                  key={section}
+                  onClick={() => handleNavClick(section)} 
+                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/60 transition-all duration-200 capitalize"
+                >
+                  {section === 'price-plans' ? 'Pricing' : section}
+                </button>
+              ))}
             </nav>
           )}
 
-          {/* Desktop CTA Buttons */}
+          {/* Desktop CTA */}
           {!isMobile && (
-            <div className="hidden md:flex items-center space-x-4">
-              <a href="tel:+918171897209" className="flex items-center text-blue-600 hover:text-blue-800">
+            <div className="hidden md:flex items-center space-x-3">
+              <a href="tel:+918171897209" className="flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-lg hover:bg-muted/60">
                 <Phone className="w-4 h-4 mr-2" />
-                Call Now
+                Call
               </a>
-              <Button variant="outline" size="sm" onClick={handleAuthAction}>
+              <Button variant="outline" size="sm" onClick={handleAuthAction} className="border-border hover:bg-muted/60 font-medium">
                 <User className="w-4 h-4 mr-2" />
                 {user ? 'Dashboard' : 'Login'}
               </Button>
-              <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={handleBookNow}>
+              <Button size="sm" onClick={handleBookNow} className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-semibold shadow-sm">
                 Book Now
               </Button>
             </div>
           )}
 
-          {/* Mobile Menu Button */}
+          {/* Mobile */}
           {isMobile && (
-            <button onClick={toggleMenu} className="md:hidden">
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <button onClick={toggleMenu} className="p-2 rounded-lg hover:bg-muted/60 transition-colors">
+              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           )}
         </div>
 
         {/* Mobile Menu */}
         {isMobile && isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t">
-            <nav className="flex flex-col space-y-4 mt-4">
-              <button onClick={() => handleNavClick('home')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">Home</button>
-              <button onClick={() => handleNavClick('services')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">Services</button>
-              <button onClick={() => handleNavClick('price-plans')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">Pricing</button>
-              <button onClick={() => handleNavClick('about')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">About</button>
-              <button onClick={() => handleNavClick('contact')} className="text-gray-700 hover:text-blue-600 transition-colors text-left">Contact</button>
-              <div className="flex flex-col space-y-2 pt-4 border-t">
-                <Button variant="outline" size="sm" onClick={handleAuthAction}>
+          <div className="mt-4 pb-4 border-t border-border animate-fade-in">
+            <nav className="flex flex-col space-y-1 mt-4">
+              {['home', 'services', 'price-plans', 'about', 'contact'].map((section) => (
+                <button 
+                  key={section}
+                  onClick={() => handleNavClick(section)} 
+                  className="text-left px-4 py-3 text-muted-foreground hover:text-foreground hover:bg-muted/60 rounded-lg transition-colors capitalize font-medium"
+                >
+                  {section === 'price-plans' ? 'Pricing' : section}
+                </button>
+              ))}
+              <div className="flex flex-col space-y-2 pt-4 border-t border-border">
+                <Button variant="outline" size="sm" onClick={handleAuthAction} className="justify-start">
                   <User className="w-4 h-4 mr-2" />
                   {user ? 'Dashboard' : 'Login'}
                 </Button>
-                <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={handleBookNow}>
+                <Button size="sm" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-semibold" onClick={handleBookNow}>
                   Book Now
                 </Button>
               </div>

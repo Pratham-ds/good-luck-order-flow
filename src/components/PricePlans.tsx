@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Shirt, Crown, Home, HeartHandshake } from 'lucide-react';
+import { motion } from "framer-motion";
 
 const PricePlans = () => {
   const menWear = [
@@ -37,32 +38,39 @@ const PricePlans = () => {
     { item: "Boots", regular: "520+", offer: "370+" }
   ];
 
+  const categories = [
+    { value: 'men-wear', icon: Shirt, iconBg: 'bg-primary/10', iconColor: 'text-primary', title: "Men's Wear", subtitle: "Professional dry cleaning for men's clothing", data: menWear },
+    { value: 'women-wear', icon: Crown, iconBg: 'bg-secondary/10', iconColor: 'text-secondary', title: "Women's Wear", subtitle: "Delicate care for women's garments", data: womenWear },
+    { value: 'household', icon: Home, iconBg: 'bg-primary/10', iconColor: 'text-primary', title: "Household Items", subtitle: "Complete home textile care services", data: householdItems },
+    { value: 'shoes', icon: HeartHandshake, iconBg: 'bg-secondary/10', iconColor: 'text-secondary', title: "👟 Shoe Cleaning", subtitle: "Professional shoe cleaning and restoration", data: shoesCleaning },
+  ];
+
   const PriceTable = ({ data, icon: Icon, title }: { data: any[], icon: any, title: string }) => (
-    <Card>
+    <Card className="border-border/40 shadow-premium">
       <CardHeader>
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-            <Icon className="w-5 h-5 text-blue-600" />
+          <div className="w-10 h-10 bg-secondary/10 rounded-xl flex items-center justify-center">
+            <Icon className="w-5 h-5 text-secondary" />
           </div>
-          <CardTitle className="text-xl">{title}</CardTitle>
+          <CardTitle className="text-lg font-display">{title}</CardTitle>
         </div>
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b-2 border-gray-200">
-                <th className="text-left py-3 px-2 font-semibold">Item</th>
-                <th className="text-center py-3 px-2 font-semibold">Regular Price (₹)</th>
-                <th className="text-center py-3 px-2 font-semibold text-green-600">Offer Price (₹)</th>
+              <tr className="border-b-2 border-border">
+                <th className="text-left py-3 px-2 font-semibold text-foreground text-sm">Item</th>
+                <th className="text-center py-3 px-2 font-semibold text-muted-foreground text-sm">Regular (₹)</th>
+                <th className="text-center py-3 px-2 font-semibold text-secondary text-sm">Offer (₹)</th>
               </tr>
             </thead>
             <tbody>
               {data.map((row, index) => (
-                <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-2 font-medium">{row.item}</td>
-                  <td className="py-3 px-2 text-center text-gray-600 line-through">{row.regular}</td>
-                  <td className="py-3 px-2 text-center text-green-600 font-semibold">{row.offer}</td>
+                <tr key={index} className="border-b border-border/40 hover:bg-muted/40 transition-colors">
+                  <td className="py-3 px-2 font-medium text-foreground">{row.item}</td>
+                  <td className="py-3 px-2 text-center text-muted-foreground line-through">{row.regular}</td>
+                  <td className="py-3 px-2 text-center text-secondary font-semibold">{row.offer}</td>
                 </tr>
               ))}
             </tbody>
@@ -73,94 +81,56 @@ const PricePlans = () => {
   );
 
   return (
-    <div id="price-plans" className="py-16 bg-gray-50">
+    <div id="price-plans" className="py-24 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Price Plans</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <p className="text-secondary font-semibold text-sm uppercase tracking-widest mb-3">Transparent Pricing</p>
+          <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-4">Our Price Plans</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Transparent pricing for every fabric and every home
           </p>
-        </div>
+        </motion.div>
 
-        <Accordion type="single" collapsible defaultValue="men-wear" className="space-y-6">
-          <AccordionItem value="men-wear" className="border-0">
-            <AccordionTrigger className="hover:no-underline">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Shirt className="w-6 h-6 text-blue-600" />
+        <Accordion type="single" collapsible defaultValue="men-wear" className="space-y-4 max-w-4xl mx-auto">
+          {categories.map((cat) => (
+            <AccordionItem key={cat.value} value={cat.value} className="border border-border/40 rounded-2xl px-4 overflow-hidden bg-card shadow-premium data-[state=open]:shadow-premium-lg transition-shadow">
+              <AccordionTrigger className="hover:no-underline py-5">
+                <div className="flex items-center space-x-4">
+                  <div className={`w-12 h-12 ${cat.iconBg} rounded-xl flex items-center justify-center`}>
+                    <cat.icon className={`w-6 h-6 ${cat.iconColor}`} />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-xl font-display font-bold text-foreground">{cat.title}</h3>
+                    <p className="text-sm text-muted-foreground">{cat.subtitle}</p>
+                  </div>
                 </div>
-                <div className="text-left">
-                  <h3 className="text-2xl font-bold">Men's Wear</h3>
-                  <p className="text-gray-600">Professional dry cleaning for men's clothing</p>
-                </div>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <PriceTable data={menWear} icon={Shirt} title="Men's Wear Pricing" />
-            </AccordionContent>
-          </AccordionItem>
-
-          <AccordionItem value="women-wear" className="border-0">
-            <AccordionTrigger className="hover:no-underline">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
-                  <Crown className="w-6 h-6 text-pink-600" />
-                </div>
-                <div className="text-left">
-                  <h3 className="text-2xl font-bold">Women's Wear</h3>
-                  <p className="text-gray-600">Delicate care for women's garments</p>
-                </div>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <PriceTable data={womenWear} icon={Crown} title="Women's Wear Pricing" />
-            </AccordionContent>
-          </AccordionItem>
-
-          <AccordionItem value="household" className="border-0">
-            <AccordionTrigger className="hover:no-underline">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <Home className="w-6 h-6 text-green-600" />
-                </div>
-                <div className="text-left">
-                  <h3 className="text-2xl font-bold">Household Items</h3>
-                  <p className="text-gray-600">Complete home textile care services</p>
-                </div>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <PriceTable data={householdItems} icon={Home} title="Household Items Pricing" />
-            </AccordionContent>
-          </AccordionItem>
-
-          <AccordionItem value="shoes" className="border-0">
-            <AccordionTrigger className="hover:no-underline">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-                  <HeartHandshake className="w-6 h-6 text-orange-600" />
-                </div>
-                <div className="text-left">
-                  <h3 className="text-2xl font-bold">👟 Shoe Cleaning</h3>
-                  <p className="text-gray-600">Professional shoe cleaning and restoration</p>
-                </div>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <PriceTable data={shoesCleaning} icon={HeartHandshake} title="Shoe Cleaning Pricing" />
-            </AccordionContent>
-          </AccordionItem>
+              </AccordionTrigger>
+              <AccordionContent className="pb-6">
+                <PriceTable data={cat.data} icon={cat.icon} title={`${cat.title} Pricing`} />
+              </AccordionContent>
+            </AccordionItem>
+          ))}
         </Accordion>
 
-        <div className="mt-12 text-center">
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-2xl mx-auto">
-            <h3 className="text-lg font-semibold text-blue-900 mb-2">Special Offers Available!</h3>
-            <p className="text-blue-700">
+        <motion.div 
+          className="mt-12 text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <div className="bg-secondary/10 border border-secondary/20 rounded-2xl p-8 max-w-2xl mx-auto">
+            <h3 className="text-lg font-display font-semibold text-foreground mb-2">Special Offers Available!</h3>
+            <p className="text-muted-foreground">
               Enjoy our discounted rates on all services. Prices may vary based on fabric type and condition.
               Contact us for bulk orders and additional discounts.
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, MapPin } from 'lucide-react';
+import { CheckCircle, Clock, MapPin, ArrowRight } from 'lucide-react';
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import heroImage from "@/assets/hero-dryclean.png";
 
 const Hero = () => {
@@ -15,84 +16,121 @@ const Hero = () => {
     window.open(whatsappUrl, '_blank');
   };
 
-
   const handleViewServices = () => {
     document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const stats = [
+    { icon: CheckCircle, label: '99% Stain Removal', sub: 'Guaranteed', color: 'text-secondary' },
+    { icon: Clock, label: '48hr Service', sub: 'Fast turnaround', color: 'text-secondary' },
+    { icon: MapPin, label: 'Free Pickup', sub: '& Delivery', color: 'text-secondary' },
+  ];
+
   return (
-    <section id="home" className="bg-gradient-to-br from-blue-50 to-blue-100 py-20">
-      <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
-                Professional
-                <span className="text-blue-600 block">Dry Cleaning</span>
-                <span className="text-gray-700">& Laundry</span>
+    <section id="home" className="relative overflow-hidden bg-gradient-to-br from-primary via-navy to-navy-light min-h-[90vh] flex items-center">
+      {/* Decorative elements */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 right-20 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-10 w-72 h-72 bg-secondary rounded-full blur-3xl"></div>
+      </div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,transparent_30%,hsl(220_60%_12%/0.7))]"></div>
+
+      <div className="container mx-auto px-4 py-20 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <motion.div 
+            className="space-y-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="space-y-6">
+              <motion.div 
+                className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/15 border border-secondary/25 rounded-full"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <span className="w-2 h-2 bg-secondary rounded-full animate-pulse"></span>
+                <span className="text-secondary text-sm font-medium">Trusted Since 1970 — 50,000+ Happy Customers</span>
+              </motion.div>
+
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-[1.1] text-primary-foreground">
+                Premium{' '}
+                <span className="text-gradient-gold">Dry Cleaning</span>
+                <br />
+                <span className="text-primary-foreground/80">& Laundry Care</span>
               </h1>
-              <p className="text-xl text-gray-600 leading-relaxed">
-                Experience premium laundry and dry cleaning services with free pickup & delivery. 
-                Your clothes deserve the best care.
+
+              <p className="text-lg text-primary-foreground/65 leading-relaxed max-w-lg font-body">
+                Experience meticulous garment care with free pickup & delivery. 
+                Your clothes deserve artisan-level attention to detail.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
                 size="lg" 
-                className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-6"
+                className="bg-secondary text-secondary-foreground hover:bg-secondary/90 text-base px-8 py-6 font-semibold shadow-lg shadow-secondary/25 group"
                 onClick={handleBookPickup}
               >
                 Book Pickup Now
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="text-lg px-8 py-6"
+                className="text-base px-8 py-6 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 backdrop-blur-sm"
                 onClick={handleViewServices}
               >
                 View Services
               </Button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8">
-              <div className="flex items-center space-x-3">
-                <CheckCircle className="w-6 h-6 text-green-600" />
-                <div>
-                  <p className="font-semibold text-gray-900">99% Stain Removal</p>
-                  <p className="text-sm text-gray-600">Guaranteed</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Clock className="w-6 h-6 text-blue-600" />
-                <div>
-                  <p className="font-semibold text-gray-900">48hr Service</p>
-                  <p className="text-sm text-gray-600">Fast turnaround</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-3">
-                <MapPin className="w-6 h-6 text-purple-600" />
-                <div>
-                  <p className="font-semibold text-gray-900">Free Pickup</p>
-                  <p className="text-sm text-gray-600">& delivery</p>
-                </div>
-              </div>
+            <div className="grid grid-cols-3 gap-4 pt-4">
+              {stats.map((stat, i) => (
+                <motion.div 
+                  key={i}
+                  className="flex items-center space-x-3 p-3 rounded-xl bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + i * 0.15 }}
+                >
+                  <stat.icon className={`w-5 h-5 ${stat.color} flex-shrink-0`} />
+                  <div>
+                    <p className="font-semibold text-primary-foreground text-sm">{stat.label}</p>
+                    <p className="text-xs text-primary-foreground/50">{stat.sub}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          </div>
+          </motion.div>
 
-          <div className="relative">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 transform rotate-2 hover:rotate-0 transition-transform duration-300">
-              <img 
-                src={heroImage} 
-                alt="Professional dry cleaning services with modern equipment and clean clothes" 
-                className="rounded-xl w-full h-80 object-cover"
-              />
+          <motion.div 
+            className="relative hidden lg:block"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-transparent rounded-3xl blur-2xl scale-110"></div>
+              <div className="relative bg-primary-foreground/5 backdrop-blur-md rounded-3xl p-3 border border-primary-foreground/10">
+                <img 
+                  src={heroImage} 
+                  alt="Professional dry cleaning services with modern equipment and clean clothes" 
+                  className="rounded-2xl w-full h-[480px] object-cover"
+                />
+              </div>
+              <motion.div 
+                className="absolute -bottom-6 -left-6 bg-gradient-gold text-secondary-foreground p-5 rounded-2xl shadow-premium-lg"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.8 }}
+              >
+                <p className="font-display font-bold text-xl">Since 1970</p>
+                <p className="text-sm opacity-80">Serving with Excellence</p>
+              </motion.div>
             </div>
-            <div className="absolute -bottom-6 -left-6 bg-blue-600 text-white p-4 rounded-xl shadow-lg">
-              <p className="font-bold text-lg">Since 1970</p>
-              <p className="text-sm">Trusted by 50,000+ customers</p>
-            </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
