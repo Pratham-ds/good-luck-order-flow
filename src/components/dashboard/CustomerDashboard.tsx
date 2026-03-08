@@ -242,6 +242,10 @@ const CustomerDashboard = () => {
             <AddressManager key={`addresses-${refreshKey}`} />
           </TabsContent>
 
+          <TabsContent value="loyalty">
+            <LoyaltyRewards key={`loyalty-${refreshKey}`} />
+          </TabsContent>
+
           <TabsContent value="profile">
             <Card>
               <CardHeader>
