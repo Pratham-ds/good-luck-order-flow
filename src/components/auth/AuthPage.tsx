@@ -9,6 +9,67 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Phone, Mail, User, Lock } from 'lucide-react';
 
+const ForgotPasswordForm = () => {
+  const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [sent, setSent] = useState(false);
+  const { toast } = useToast();
+
+  const handleReset = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (error) throw error;
+      setSent(true);
+      toast({ title: "Reset link sent!", description: "Check your email for the password reset link." });
+    } catch (error: any) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (sent) {
+    return (
+      <div className="text-center space-y-3 py-4">
+        <Mail className="h-12 w-12 text-gold mx-auto" />
+        <h3 className="font-display font-semibold text-foreground">Check your email</h3>
+        <p className="text-sm text-muted-foreground">We've sent a password reset link to <strong>{email}</strong></p>
+        <Button variant="ghost" onClick={() => setSent(false)} className="text-gold hover:text-gold-light">
+          Try another email
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleReset} className="space-y-4">
+      <p className="text-sm text-muted-foreground">Enter your email and we'll send you a reset link.</p>
+      <div className="space-y-2">
+        <Label htmlFor="reset-email">Email</Label>
+        <div className="relative">
+          <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+          <Input
+            id="reset-email"
+            type="email"
+            placeholder="your@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="pl-10 border-gold/20 focus:border-gold"
+            required
+          />
+        </div>
+      </div>
+      <Button type="submit" className="w-full bg-gold hover:bg-gold-light text-navy font-semibold" disabled={isLoading}>
+        {isLoading ? "Sending..." : "Send Reset Link"}
+      </Button>
+    </form>
+  );
+};
+
 const AuthPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
