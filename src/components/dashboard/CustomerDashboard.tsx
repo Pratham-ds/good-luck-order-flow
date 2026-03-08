@@ -7,11 +7,12 @@ import { Badge } from "@/components/ui/badge";
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from '@/integrations/supabase/client';
-import { Package, MapPin, Clock, User, LogOut, Plus, RefreshCw } from 'lucide-react';
+import { Package, MapPin, Clock, User, LogOut, Plus, RefreshCw, Trophy } from 'lucide-react';
 import OrderHistory from './OrderHistory';
 import AddressManager from './AddressManager';
 import OrderTracking from './OrderTracking';
 import SmartSuggestions from './SmartSuggestions';
+import LoyaltyRewards from './LoyaltyRewards';
 import { useNavigate } from "react-router-dom";
 
 const CustomerDashboard = () => {
@@ -190,11 +191,15 @@ const CustomerDashboard = () => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
             <TabsTrigger value="orders">My Orders</TabsTrigger>
             <TabsTrigger value="tracking">Track Orders</TabsTrigger>
             <TabsTrigger value="addresses">Addresses</TabsTrigger>
+            <TabsTrigger value="loyalty" className="flex items-center gap-1">
+              <Trophy className="w-3 h-3" />
+              Loyalty
+            </TabsTrigger>
             <TabsTrigger value="profile">Profile</TabsTrigger>
           </TabsList>
 
@@ -235,6 +240,10 @@ const CustomerDashboard = () => {
 
           <TabsContent value="addresses">
             <AddressManager key={`addresses-${refreshKey}`} />
+          </TabsContent>
+
+          <TabsContent value="loyalty">
+            <LoyaltyRewards key={`loyalty-${refreshKey}`} />
           </TabsContent>
 
           <TabsContent value="profile">
