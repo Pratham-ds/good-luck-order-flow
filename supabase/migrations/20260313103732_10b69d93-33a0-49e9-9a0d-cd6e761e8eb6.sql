@@ -1,0 +1,1 @@
+UPDATE public.testimonials SET customer_location = NULL;
