@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, Quote } from 'lucide-react';
+import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from "framer-motion";
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import useEmblaCarousel from 'embla-carousel-react';
+import { Button } from "@/components/ui/button";
 
 const Testimonials = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' });
+
   const { data: testimonials = [] } = useQuery({
     queryKey: ['testimonials'],
     queryFn: async () => {
@@ -18,6 +22,18 @@ const Testimonials = () => {
       return data;
     },
   });
+
+  // Auto-slide every 4 seconds
+  useEffect(() => {
+    if (!emblaApi) return;
+    const interval = setInterval(() => {
+      emblaApi.scrollNext();
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [emblaApi]);
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   if (testimonials.length === 0) return null;
 
@@ -37,37 +53,52 @@ const Testimonials = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {testimonials.map((t, index) => (
-            <motion.div
-              key={t.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <Card className="h-full border-border/40 bg-card shadow-premium hover:shadow-premium-lg transition-all duration-500">
-                <CardContent className="p-8">
-                  <Quote className="w-8 h-8 text-secondary/40 mb-4" />
-                  <p className="text-muted-foreground mb-6 leading-relaxed italic">"{t.message}"</p>
-                  <div className="flex items-center gap-1 mb-3">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-4 h-4 ${i < t.rating ? 'text-secondary fill-secondary' : 'text-muted-foreground/30'}`}
-                      />
-                    ))}
-                  </div>
-                  <div>
-                    <p className="font-display font-semibold text-foreground">{t.customer_name}</p>
-                    {t.customer_location && (
-                      <p className="text-sm text-muted-foreground">{t.customer_location}</p>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+        <div className="relative max-w-6xl mx-auto">
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex gap-6">
+              {testimonials.map((t) => (
+                <div key={t.id} className="flex-[0_0_100%] min-w-0 md:flex-[0_0_50%] lg:flex-[0_0_33.333%] pl-1">
+                  <Card className="h-full border-border/40 bg-card shadow-premium hover:shadow-premium-lg transition-all duration-500">
+                    <CardContent className="p-8">
+                      <Quote className="w-8 h-8 text-secondary/40 mb-4" />
+                      <p className="text-muted-foreground mb-6 leading-relaxed italic">"{t.message}"</p>
+                      <div className="flex items-center gap-1 mb-3">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-4 h-4 ${i < t.rating ? 'text-secondary fill-secondary' : 'text-muted-foreground/30'}`}
+                          />
+                        ))}
+                      </div>
+                      <div>
+                        <p className="font-display font-semibold text-foreground">{t.customer_name}</p>
+                        {t.customer_location && (
+                          <p className="text-sm text-muted-foreground">{t.customer_location}</p>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <Button
+            variant="outline"
+            size="icon"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 rounded-full bg-background/80 backdrop-blur-sm border-border shadow-md z-10 hidden md:flex"
+            onClick={scrollPrev}
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 rounded-full bg-background/80 backdrop-blur-sm border-border shadow-md z-10 hidden md:flex"
+            onClick={scrollNext}
+          >
+            <ChevronRight className="w-5 h-5" />
+          </Button>
         </div>
       </div>
     </section>
