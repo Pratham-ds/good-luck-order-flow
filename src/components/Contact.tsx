@@ -85,7 +85,7 @@ const Contact = () => {
                   WhatsApp Us Now
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
-                <Button variant="outline" className="w-full border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10" onClick={() => window.location.href = "tel:+918171897209"}>
+                <Button variant="outline" className="w-full border-secondary bg-secondary/10 text-secondary hover:bg-secondary/20" onClick={() => window.location.href = "tel:+918171897209"}>
                   Call Now
                 </Button>
               </div>
