@@ -136,11 +136,7 @@ const Header = () => {
                 </button>
               ))}
               <div className="flex flex-col space-y-2 pt-4 border-t border-border">
-                <Button variant="outline" size="sm" onClick={handleAuthAction} className="justify-start">
-                  <User className="w-4 h-4 mr-2" />
-                  {user ? 'Dashboard' : 'Login'}
-                </Button>
-                <Button size="sm" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-semibold" onClick={handleBookNow}>
+                <Button size="sm" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-semibold w-full" onClick={handleBookNow}>
                   Book Now
                 </Button>
               </div>
