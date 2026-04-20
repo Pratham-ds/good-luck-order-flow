@@ -234,6 +234,54 @@ export type Database = {
         }
         Relationships: []
       }
+      services: {
+        Row: {
+          category: string
+          created_at: string | null
+          description: string
+          features: string[]
+          icon_emoji: string | null
+          id: string
+          image_key: string
+          is_active: boolean
+          is_available: boolean
+          price: string
+          sort_order: number
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category?: string
+          created_at?: string | null
+          description: string
+          features?: string[]
+          icon_emoji?: string | null
+          id?: string
+          image_key?: string
+          is_active?: boolean
+          is_available?: boolean
+          price: string
+          sort_order?: number
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          description?: string
+          features?: string[]
+          icon_emoji?: string | null
+          id?: string
+          image_key?: string
+          is_active?: boolean
+          is_available?: boolean
+          price?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       special_offers: {
         Row: {
           created_at: string | null

@@ -6,13 +6,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from '@/integrations/supabase/client';
-import { LogOut, Settings, Users, Package, TrendingUp, Clock, CheckCircle, MessageSquare, Sparkles, DollarSign } from 'lucide-react';
+import { LogOut, Settings, Users, Package, TrendingUp, Clock, CheckCircle, MessageSquare, Sparkles, DollarSign, Wrench } from 'lucide-react';
 import AdminOrderManagement from './AdminOrderManagement';
 import AdminCustomers from './AdminCustomers';
 import AdminSettings from './AdminSettings';
 import AdminTestimonials from './AdminTestimonials';
 import AdminSpecialOffers from './AdminSpecialOffers';
 import AdminPriceItems from './AdminPriceItems';
+import AdminServices from './AdminServices';
 
 const AdminDashboard = () => {
   const { user, signOut } = useAuth();
@@ -147,7 +148,7 @@ const AdminDashboard = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-7">
             <TabsTrigger value="orders">
               <Package className="w-4 h-4 mr-2" />
               Orders
@@ -155,6 +156,10 @@ const AdminDashboard = () => {
             <TabsTrigger value="customers">
               <Users className="w-4 h-4 mr-2" />
               Customers
+            </TabsTrigger>
+            <TabsTrigger value="services">
+              <Wrench className="w-4 h-4 mr-2" />
+              Services
             </TabsTrigger>
             <TabsTrigger value="prices">
               <DollarSign className="w-4 h-4 mr-2" />
@@ -180,6 +185,10 @@ const AdminDashboard = () => {
 
           <TabsContent value="customers">
             <AdminCustomers />
+          </TabsContent>
+
+          <TabsContent value="services">
+            <AdminServices />
           </TabsContent>
 
           <TabsContent value="prices">
