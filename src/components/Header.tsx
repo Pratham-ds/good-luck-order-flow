@@ -105,9 +105,20 @@ const Header = () => {
 
           {/* Mobile */}
           {isMobile && (
-            <button onClick={toggleMenu} className="p-2 rounded-lg hover:bg-muted/60 transition-colors">
-              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+            <div className="flex items-center gap-2">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={handleAuthAction} 
+                className="text-sm font-medium"
+              >
+                <User className="w-4 h-4 mr-1" />
+                {user ? 'Dashboard' : 'Login'}
+              </Button>
+              <button onClick={toggleMenu} className="p-2 rounded-lg hover:bg-muted/60 transition-colors">
+                {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
           )}
         </div>
 
@@ -125,11 +136,7 @@ const Header = () => {
                 </button>
               ))}
               <div className="flex flex-col space-y-2 pt-4 border-t border-border">
-                <Button variant="outline" size="sm" onClick={handleAuthAction} className="justify-start">
-                  <User className="w-4 h-4 mr-2" />
-                  {user ? 'Dashboard' : 'Login'}
-                </Button>
-                <Button size="sm" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-semibold" onClick={handleBookNow}>
+                <Button size="sm" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-semibold w-full" onClick={handleBookNow}>
                   Book Now
                 </Button>
               </div>
