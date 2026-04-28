@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import type { Database } from "@/integrations/supabase/types";
 import dryCleaningIcon from "@/assets/dry-cleaning-icon.png";
 import laundryIcon from "@/assets/laundry-icon.png";
 import minorRepairIcon from "@/assets/minor-repair-icon.png";
@@ -22,7 +23,10 @@ const IMAGE_MAP: Record<string, string> = {
   sofa_cleaning: sofaCleaningIcon,
 };
 
+type Service = Database['public']['Tables']['services']['Row'];
+
 const Services = () => {
+  const queryClient = useQueryClient();
   const { data: services = [] } = useQuery({
     queryKey: ['services'],
     queryFn: async () => {
@@ -33,10 +37,25 @@ const Services = () => {
       if (error) throw error;
       return data;
     },
+    refetchOnMount: 'always',
+    refetchOnWindowFocus: true,
   });
 
-  const regularServices = services.filter((s: any) => s.category === 'regular');
-  const specializedServices = services.filter((s: any) => s.category === 'specialized');
+  React.useEffect(() => {
+    const channel = supabase
+      .channel('public-services-updates')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'services' }, () => {
+        queryClient.invalidateQueries({ queryKey: ['services'] });
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [queryClient]);
+
+  const regularServices = services.filter((s: Service) => s.category === 'regular');
+  const specializedServices = services.filter((s: Service) => s.category === 'specialized');
 
   const handleBookService = (serviceName: string) => {
     const phoneNumber = "918171897209";
@@ -44,7 +63,7 @@ const Services = () => {
     window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
   };
 
-  const ServiceCard = ({ service, showIcon = false, index }: { service: any; showIcon?: boolean; index: number }) => {
+  const ServiceCard = ({ service, showIcon = false, index }: { service: Service; showIcon?: boolean; index: number }) => {
     const image = IMAGE_MAP[service.image_key] || laundryIcon;
     const unavailable = !service.is_available;
     return (
@@ -127,7 +146,7 @@ const Services = () => {
 
           <TabsContent value="regular">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {regularServices.map((service: any, index: number) => (
+              {regularServices.map((service: Service, index: number) => (
                 <ServiceCard key={service.id} service={service} index={index} />
               ))}
             </div>
@@ -135,7 +154,7 @@ const Services = () => {
 
           <TabsContent value="specialized">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {specializedServices.map((service: any, index: number) => (
+              {specializedServices.map((service: Service, index: number) => (
                 <ServiceCard key={service.id} service={service} showIcon={true} index={index} />
               ))}
             </div>
