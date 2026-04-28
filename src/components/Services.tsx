@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import dryCleaningIcon from "@/assets/dry-cleaning-icon.png";
 import laundryIcon from "@/assets/laundry-icon.png";
@@ -23,6 +23,7 @@ const IMAGE_MAP: Record<string, string> = {
 };
 
 const Services = () => {
+  const queryClient = useQueryClient();
   const { data: services = [] } = useQuery({
     queryKey: ['services'],
     queryFn: async () => {
@@ -33,7 +34,22 @@ const Services = () => {
       if (error) throw error;
       return data;
     },
+    refetchOnMount: 'always',
+    refetchOnWindowFocus: true,
   });
+
+  React.useEffect(() => {
+    const channel = supabase
+      .channel('public-services-updates')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'services' }, () => {
+        queryClient.invalidateQueries({ queryKey: ['services'] });
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [queryClient]);
 
   const regularServices = services.filter((s: any) => s.category === 'regular');
   const specializedServices = services.filter((s: any) => s.category === 'specialized');
