@@ -11,8 +11,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import type { Database } from "@/integrations/supabase/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Plus, Pencil, Trash2 } from "lucide-react";
+
+type Service = Database['public']['Tables']['services']['Row'];
+type ServiceForm = typeof emptyForm;
 
 const IMAGE_KEYS = [
   { value: 'dry_cleaning', label: 'Dry Cleaning' },
@@ -40,8 +44,8 @@ const AdminServices = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
-  const [editing, setEditing] = useState<any>(null);
-  const [form, setForm] = useState<any>(emptyForm);
+  const [editing, setEditing] = useState<Service | null>(null);
+  const [form, setForm] = useState<ServiceForm>(emptyForm);
 
   const { data: services = [] } = useQuery({
     queryKey: ['admin-services'],
@@ -54,7 +58,7 @@ const AdminServices = () => {
 
   const reset = () => { setForm(emptyForm); setEditing(null); };
 
-  const openEdit = (svc: any) => {
+  const openEdit = (svc: Service) => {
     setEditing(svc);
     setForm({
       title: svc.title,
@@ -104,18 +108,18 @@ const AdminServices = () => {
       invalidate();
       toast({ title: 'Success', description: editing ? 'Service updated' : 'Service added' });
       setOpen(false); reset();
-    } catch (e: any) {
-      toast({ title: 'Error', description: e.message, variant: 'destructive' });
+    } catch (e: unknown) {
+      toast({ title: 'Error', description: e instanceof Error ? e.message : 'Unable to save service', variant: 'destructive' });
     }
   };
 
-  const toggleAvailable = async (svc: any) => {
+  const toggleAvailable = async (svc: Service) => {
     const { error } = await supabase.from('services').update({ is_available: !svc.is_available }).eq('id', svc.id);
     if (error) toast({ title: 'Error', description: error.message, variant: 'destructive' });
     else { invalidate(); toast({ title: svc.is_available ? 'Marked unavailable' : 'Marked available' }); }
   };
 
-  const toggleActive = async (svc: any) => {
+  const toggleActive = async (svc: Service) => {
     const { error } = await supabase.from('services').update({ is_active: !svc.is_active }).eq('id', svc.id);
     if (error) toast({ title: 'Error', description: error.message, variant: 'destructive' });
     else { invalidate(); toast({ title: svc.is_active ? 'Hidden from site' : 'Shown on site' }); }
@@ -129,11 +133,11 @@ const AdminServices = () => {
   };
 
   const renderList = (cat: string) => {
-    const list = services.filter((s: any) => s.category === cat);
+    const list = services.filter((s: Service) => s.category === cat);
     if (!list.length) return <p className="text-muted-foreground text-center py-6">No services</p>;
     return (
       <div className="space-y-3">
-        {list.map((svc: any) => (
+        {list.map((svc: Service) => (
           <div key={svc.id} className="flex flex-col md:flex-row md:items-center justify-between p-4 border rounded-lg gap-3">
             <div className="flex-1">
               <div className="flex items-center gap-2 flex-wrap">
